@@ -18,3 +18,12 @@ nav.addEventListener('click', (e) => {
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.site-header')) setMenu(false);
 });
+// Thanh menu trong suốt ở trên cùng, cuộn xuống thì chuyển nền trắng
+const header = document.querySelector('.site-header');
+
+function updateHeader() {
+  header.classList.toggle('scrolled', window.scrollY > 8);
+}
+
+window.addEventListener('scroll', updateHeader, { passive: true });
+updateHeader();
