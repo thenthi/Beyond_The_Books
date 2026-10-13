@@ -85,9 +85,11 @@ a {
   align-items: center;
   justify-content: space-between;   /* logo trái, nút phải */
   padding: 5px 6px 5px 16px;
-  /* ở trên cùng: trong suốt */
-  background: transparent;
-  border: 1.4px solid transparent;
+  /* ở trên cùng: trắng xám mờ */
+  background: rgba(255, 255, 255, 0.45);
+  border: 1.4px solid rgba(31, 42, 39, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 999px;
   box-shadow: none;
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -559,108 +561,164 @@ body:has(.rules) .site-footer {
   color: var(--accent);
 }
 
-/* ===== Booking: danh sách topic ===== */
+/* ===== Booking: bìa topic + chồng card ===== */
 .topic-list {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
 }
 
 .topic {
   scroll-margin-top: 80px;
-  border: 1.5px solid var(--text);
-  border-radius: 20px;
-  background: var(--paper);
-  box-shadow: var(--pop);
-  overflow: hidden;
 }
 
-.topic-head {
+/* bìa (túi đựng card) */
+.cover {
+  position: relative;
+  z-index: 5;
   width: 100%;
-  min-height: 120px;
+  min-height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2px;
+  border: 1.5px solid var(--text);
+  border-radius: 6px 6px 20px 20px;
   background: var(--topic-color);
+  color: var(--topic-ink);
+  box-shadow: var(--pop);
   cursor: pointer;
-  transition: min-height 0.3s ease;
+  transition: margin-top 0.4s ease, min-height 0.4s ease, transform 0.2s ease;
 }
 
-.topic.open .topic-head {
-  min-height: 80px;
+/* vết khuyết ở mép trên bìa cho giống túi hồ sơ */
+.cover::before {
+  content: "";
+  position: absolute;
+  top: -1.5px;
+  left: 50%;
+  width: 56px;
+  height: 18px;
+  translate: -50% 0;
+  border: 1.5px solid var(--text);
+  border-top: 0;
+  border-radius: 0 0 28px 28px;
+  background: var(--bg);
 }
 
-.topic-name {
+/* khi mở, vết khuyết lộ ra card trắng bên trong */
+.topic.open .cover::before {
+  background: #fff;
+}
+
+.cover:hover {
+  transform: translateY(-2px);
+}
+
+.cover-title {
   font-family: var(--hand);
-  font-size: 44px;
+  font-size: 52px;
   font-weight: 700;
   line-height: 1;
 }
 
-.topic-count {
+.cover-count {
   font-size: 13px;
-  color: var(--muted);
+  opacity: 0.75;
 }
 
-/* mở/đóng mượt bằng grid rows */
-.topic-panel {
+/* các ngăn card bên trong bìa: đóng/mở bằng grid rows */
+.topic {
+  --card-h: 200px;
+  --edge: 14px; /* phần mép card lộ ra trên miệng bìa */
+  position: relative;
+}
+
+.topic.open {
+  z-index: 10; /* card trồi lên được đè lên topic phía trên */
+}
+
+.deck-wrap {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s ease;
+  transition: grid-template-rows 0.4s ease;
 }
 
-.topic.open .topic-panel {
+.topic.open .deck-wrap {
   grid-template-rows: 1fr;
-  border-top: 1.5px solid var(--text);
 }
 
-.topic-panel-inner {
+.deck-inner {
   overflow: hidden;
 }
 
-.people-scroll {
-  display: flex;
-  gap: 14px;
-  padding: 18px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+.topic.open .deck-inner {
+  overflow: visible;
 }
 
-.person-card {
-  flex: 0 0 72%;
-  max-width: 240px;
-  scroll-snap-align: start;
+.deck {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 12px;
+  padding: 10px 12px 0;
+}
+
+/* bìa che gần hết card, chỉ chừa mép trên của từng ngăn */
+.topic.open .cover {
+  margin-top: calc(var(--edge) - var(--card-h));
+  min-height: calc(var(--card-h) - var(--edge)); /* bìa đủ cao để đựng trọn card */
+}
+
+.book-card {
+  position: relative;
+  height: var(--card-h);
+  display: flex;
+  gap: 14px;
+  padding: 22px 16px 16px;
   text-decoration: none;
   background: #fff;
   border: 1.5px solid var(--text);
-  border-radius: 16px;
-  box-shadow: 3px 3px 0 var(--text);
-  transform: translateY(30px);
-  opacity: 0;
-  transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.15s ease;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 -3px 8px rgba(31, 42, 39, 0.08);
+  transform: translateY(60px);
+  transition: transform 0.4s ease;
 }
 
-.topic.open .person-card {
+.book-card + .book-card {
+  margin-top: calc(var(--edge) - var(--card-h));
+}
+
+.topic.open .book-card {
   transform: none;
-  opacity: 1;
+  transition-delay: calc(var(--i) * 0.06s + 0.15s);
 }
 
-.topic.open .person-card:nth-child(2) { transition-delay: 0.06s; }
-.topic.open .person-card:nth-child(3) { transition-delay: 0.12s; }
-
-.person-card:hover {
-  box-shadow: 5px 5px 0 var(--text);
+/* hover vào ngăn nào thì card đó trồi lên khỏi bìa */
+.topic.open .book-card:hover,
+.topic.open .book-card:focus-visible,
+.topic.open .book-card.lifted {
+  transform: translateY(calc(var(--edge) - var(--card-h) + 20px));
+  transition-delay: 0s;
 }
 
-.person-card .avatar {
-  width: 64px;
-  margin-bottom: 6px;
+.book-card .avatar {
+  width: 80px;
+  height: 96px;
+  aspect-ratio: auto;
+  flex-shrink: 0;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.card-label {
+  font-family: var(--hand);
+  font-size: 26px;
+  line-height: 1;
 }
 
 .person-name {
@@ -675,14 +733,14 @@ body:has(.rules) .site-footer {
 
 .person-bio {
   font-size: 13px;
+  line-height: 1.4;
   color: var(--muted);
-  flex: 1;
 }
 
 .person-go {
-  margin-top: 6px;
+  margin-top: 4px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /* ===== Booking chi tiết ===== */

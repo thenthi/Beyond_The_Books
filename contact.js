@@ -13,7 +13,7 @@ if (booking && params.get('date') && params.get('time')) {
     <strong>${booking.person.name}</strong>
     <span>${dateText} · ${params.get('time')}</span>`;
 } else {
-  summary.innerHTML = 'Bạn chưa chọn lịch. <a href="booking.html">Chọn topic →</a>';
+  summary.innerHTML = 'You haven\'t picked a session yet. <a href="booking.html">Choose a topic →</a>';
 }
 
 form.addEventListener('submit', (e) => {

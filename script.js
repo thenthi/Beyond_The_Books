@@ -4,7 +4,7 @@ const nav = document.querySelector('#main-nav');
 function setMenu(open) {
   nav.classList.toggle('open', open);
   toggle.setAttribute('aria-expanded', open);
-  toggle.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
+  toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 }
 
 toggle.addEventListener('click', () => {
