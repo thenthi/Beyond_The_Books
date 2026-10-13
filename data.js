@@ -13,32 +13,50 @@ const TOPICS = [
     ],
   },
   {
-    id: 'music',
-    title: 'Music',
+    id: 'cooking',
+    title: 'Cooking',
     color: '#f3c969',
     people: [
-      { name: 'Huy Pham', role: 'Producer', bio: 'Produces indie music and talks about learning it all by ear.', days: [1, 2, 3], times: ['19:00', '19:30', '20:00'] },
-      { name: 'Mai Vo', role: 'Pianist', bio: 'Ten years teaching piano — believes anyone can start.', days: [4, 5], times: ['11:00', '11:30', '12:00', '12:30'] },
+      { name: 'Hoa Pham', role: 'Home cook', bio: 'Cooks her grandmother\'s recipes and the stories behind them.', days: [1, 3, 6], times: ['10:00', '10:30', '15:00'] },
+      { name: 'Tuan Vo', role: 'Pastry chef', bio: 'Trained in Paris, now runs a small bakery in Saigon.', days: [2, 4], times: ['14:00', '14:30', '16:00'] },
     ],
   },
   {
-    id: 'tech',
-    title: 'Tech',
+    id: 'celebrity',
+    title: 'Celebrity',
     color: '#a8bfa3',
     people: [
-      { name: 'Khoa Dang', role: 'Software engineer', bio: 'Switched from economics to coding at 27.', days: [2, 4], times: ['18:00', '18:30', '19:00'] },
-      { name: 'Thao Bui', role: 'Product designer', bio: 'Designs apps for startups and loves simple things.', days: [1, 3, 5], times: ['12:00', '12:30', '13:00'] },
-      { name: 'Nam Ho', role: 'Data scientist', bio: 'Turns dry numbers into stories.', days: [6], times: ['09:00', '09:30', '10:00', '10:30'] },
+      { name: 'Quynh Do', role: 'Talk show host', bio: 'Ten years on TV — what fame looks like behind the camera.', days: [5, 6], times: ['18:00', '18:30', '19:00'] },
+      { name: 'Bao Ly', role: 'Influencer', bio: 'Grew a following of 1M and learned to log off.', days: [0, 3], times: ['11:00', '12:00', '17:00'] },
     ],
   },
   {
-    id: 'travel',
-    title: 'Travel',
+    id: 'sport',
+    title: 'Sport',
     color: '#304e63',
     ink: '#fff7ec',
     people: [
-      { name: 'Vy Ngo', role: 'Travel writer', bio: 'Backpacked through 30 countries, writes about slow travel.', days: [0, 6], times: ['14:00', '15:00', '16:00'] },
-      { name: 'Duc Lam', role: 'Tour guide', bio: 'Leads treks in the northern mountains and shares village stories.', days: [3, 5], times: ['08:00', '08:30', '09:00'] },
+      { name: 'Khoa Dang', role: 'Marathon runner', bio: 'Ran his first marathon at 40 and never stopped.', days: [0, 6], times: ['07:00', '07:30', '08:00'] },
+      { name: 'Lan Bui', role: 'Volleyball player', bio: 'Former national team player, now coaching kids.', days: [2, 4], times: ['16:00', '16:30', '17:00'] },
+      { name: 'Nam Ho', role: 'Climber', bio: 'Climbs limestone cliffs and talks about fear.', days: [6], times: ['09:00', '09:30', '10:00'] },
+    ],
+  },
+  {
+    id: 'fashion',
+    title: 'Fashion',
+    color: '#f28b75',
+    people: [
+      { name: 'Vy Ngo', role: 'Stylist', bio: 'Styles shoots for magazines and loves thrifted finds.', days: [1, 5], times: ['13:00', '13:30', '14:00'] },
+      { name: 'Thao Le', role: 'Fashion designer', bio: 'Built a slow-fashion label from her bedroom.', days: [3, 6], times: ['10:00', '11:00', '15:00'] },
+    ],
+  },
+  {
+    id: 'film',
+    title: 'Film',
+    color: '#f3c969',
+    people: [
+      { name: 'Duc Lam', role: 'Director', bio: 'Makes short films on a tiny budget and big dreams.', days: [2, 5], times: ['19:00', '19:30', '20:00'] },
+      { name: 'Mai Tran', role: 'Film critic', bio: 'Watches 300 films a year and writes about the best ones.', days: [0, 4], times: ['15:00', '16:00', '17:00'] },
     ],
   },
 ];

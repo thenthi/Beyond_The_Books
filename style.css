@@ -623,15 +623,26 @@ body:has(.rules) .site-footer {
   line-height: 1;
 }
 
-.cover-count {
+.cover-count,
+.cover-hint {
   font-size: 13px;
   opacity: 0.75;
+}
+
+.cover-hint,
+.topic.open .cover-count {
+  display: none;
+}
+
+.topic.open .cover-hint {
+  display: block;
 }
 
 /* các ngăn card bên trong bìa: đóng/mở bằng grid rows */
 .topic {
   --card-h: 200px;
-  --edge: 14px; /* phần mép card lộ ra trên miệng bìa */
+  --edge: 30px; /* phần mép card lộ ra trên miệng bìa — đủ dày để chạm trên điện thoại */
+  --lift: calc(var(--card-h) - var(--edge) - 16px); /* card trồi lên bao nhiêu */
   position: relative;
 }
 
@@ -674,7 +685,7 @@ body:has(.rules) .site-footer {
   height: var(--card-h);
   display: flex;
   gap: 14px;
-  padding: 22px 16px 16px;
+  padding: 40px 16px 16px;
   text-decoration: none;
   background: #fff;
   border: 1.5px solid var(--text);
@@ -693,12 +704,24 @@ body:has(.rules) .site-footer {
   transition-delay: calc(var(--i) * 0.06s + 0.15s);
 }
 
-/* hover vào ngăn nào thì card đó trồi lên khỏi bìa */
-.topic.open .book-card:hover,
-.topic.open .book-card:focus-visible,
+/* chạm vào ngăn nào thì card đó trồi lên khỏi bìa */
 .topic.open .book-card.lifted {
-  transform: translateY(calc(var(--edge) - var(--card-h) + 20px));
+  transform: translateY(calc(var(--lift) * -1));
   transition-delay: 0s;
+}
+
+/* chừa chỗ phía trên để card trồi lên không đè lên topic khác */
+.deck {
+  transition: padding-top 0.4s ease;
+}
+
+.topic.has-lifted .deck {
+  padding-top: calc(var(--lift) + 10px);
+}
+
+.book-card {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .book-card .avatar {

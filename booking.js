@@ -23,6 +23,7 @@ list.innerHTML = TOPICS.map((topic) => `
     <button class="cover" aria-expanded="false" aria-controls="deck-${topic.id}">
       <span class="cover-title">${topic.title}</span>
       <span class="cover-count">${topic.people.length} Living Books</span>
+      <span class="cover-hint">Tap a card to peek inside</span>
     </button>
   </article>`).join('');
 
@@ -45,13 +46,22 @@ list.addEventListener('click', (e) => {
   }
 });
 
-// Màn hình cảm ứng không có hover: chạm lần 1 cho card trồi lên, chạm lần 2 mới mở trang đặt lịch
-if (window.matchMedia('(hover: none)').matches) {
-  list.addEventListener('click', (e) => {
-    const card = e.target.closest('.book-card');
-    if (!card || card.classList.contains('lifted')) return;
-    e.preventDefault();
-    list.querySelectorAll('.book-card.lifted').forEach((c) => c.classList.remove('lifted'));
-    card.classList.add('lifted');
-  });
+// Chạm vào mép card: card trồi lên cho xem thông tin. Chạm lần nữa vào card đang trồi: sang trang đặt lịch
+function dropCards(scope = list) {
+  scope.querySelectorAll('.book-card.lifted').forEach((c) => c.classList.remove('lifted'));
+  scope.querySelectorAll('.topic.has-lifted').forEach((t) => t.classList.remove('has-lifted'));
 }
+
+list.addEventListener('click', (e) => {
+  const card = e.target.closest('.book-card');
+  if (!card || card.classList.contains('lifted')) return;
+  e.preventDefault();
+  dropCards();
+  card.classList.add('lifted');
+  card.closest('.topic').classList.add('has-lifted');
+});
+
+// chạm ra ngoài thì card hạ xuống lại
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.book-card')) dropCards();
+});
