@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choose a time · Beyond The Books</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="image.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <script src="data.js" defer></script>
+    <script src="detail.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo" href="index.html">Beyond The Books</a>
+      <div class="header-actions">
+        <a class="header-cta" href="living-book.html">Be a Living Book?</a>
+        <button class="menu-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav"></button>
+      </div>
+      <nav class="navbar" id="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a class="active" href="booking.html">Booking</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <h1 class="page-title">Booking</h1>
+
+      <section class="info-card" id="info-card"></section>
+
+      <section class="card calendar">
+        <div class="cal-head">
+          <h2 id="cal-month"></h2>
+          <div class="cal-nav">
+            <button type="button" id="cal-prev" aria-label="Tháng trước">‹</button>
+            <button type="button" id="cal-next" aria-label="Tháng sau">›</button>
+          </div>
+        </div>
+        <div class="cal-grid cal-weekdays" aria-hidden="true">
+          <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+        </div>
+        <div class="cal-grid" id="cal-days"></div>
+      </section>
+
+      <section class="card times">
+        <h2>Time</h2>
+        <p class="hint" id="time-hint">Chọn ngày trước nhé.</p>
+        <div class="time-grid" id="time-grid"></div>
+      </section>
+
+      <button class="btn btn-block" id="book-btn" disabled>Book</button>
+    </main>
+
+    <footer class="site-footer">© 2026 Beyond The Books</footer>
+  </body>
+</html>

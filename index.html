@@ -4,25 +4,128 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beyond The Books</title>
-    <!-- add the font family of your choice -->
-     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-     <link rel="icon" href="image.jpg" type="image/jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="image.jpg" type="image/jpeg">
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
-   <!-- Header Section -->
- <header class="site-header">
-  <a class="logo" href="index.html">Beyond The Books</a>
+    <!-- Header Section -->
+    <header class="site-header">
+      <a class="logo" href="index.html">Beyond The Books</a>
+      <div class="header-actions">
+        <a class="header-cta" href="living-book.html">Be a Living Book?</a>
+        <button class="menu-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav"></button>
+      </div>
+      <nav class="navbar" id="main-nav" aria-label="Main navigation">
+        <a class="active" href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+    </header>
 
-  <button class="menu-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav">
-  </button>
+    <main class="page">
+      <!-- Hero -->
+      <section class="hero">
+        <h1>BTB</h1>
+        <img class="hero-book" src="assets/book.gif" width="792" height="400" alt="Hand-drawn books tilting on a shelf" />
+      </section>
 
-  <nav class="navbar" id="main-nav" aria-label="Main navigation">
-    <a class="active" href="index.html">Home</a>
-    <a href="study.html">Booking</a>
-    <a href="sleep.html">FAQ</a>
-  </nav>
-</header>
-</body>
+      <!-- About -->
+      <section class="about">
+        <svg class="deco deco-envelope" viewBox="0 0 48 36" aria-hidden="true">
+          <rect x="2" y="2" width="44" height="32" rx="3" />
+          <path d="M2 4l22 17L46 4" />
+        </svg>
+        <svg class="deco deco-gift" viewBox="0 0 44 44" aria-hidden="true">
+          <rect x="4" y="16" width="36" height="26" rx="2" />
+          <rect x="2" y="10" width="40" height="8" rx="2" />
+          <path d="M22 10v32M22 10c-4-8-14-8-12-2s12 2 12 2zM22 10c4-8 14-8 12-2s-12 2-12 2z" />
+        </svg>
+        <h2>About us</h2>
+        <p>
+          Beyond the Book is a project that brings people together through stories,
+          experiences, and conversations.
+        </p>
+        <p>
+          Instead of borrowing a traditional book, you can meet a <strong>Living Book</strong>
+          and join a one on one or small group conversation. Each Living Book shares their own
+          experiences, interests, or perspectives, giving participants the opportunity to ask
+          questions, exchange ideas, and learn something new from another person.
+        </p>
+        <p>
+          Beyond the Book aims to create opportunities for connection, helping people feel less
+          alone while discovering the stories and experiences that exist beyond the pages of a book.
+        </p>
+        <a class="btn" href="booking.html">Browse topics</a>
+      </section>
+
+      <!-- Steps: xếp theo vòng tròn. Thêm bước mới thì thêm <li> và chỉnh --a (góc) -->
+      <section class="steps">
+        <h2>Steps</h2>
+        <div class="step-circle">
+          <svg class="step-ring" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="34" />
+          </svg>
+          <span class="step-arrow" style="--a: -30deg" aria-hidden="true"></span>
+          <span class="step-arrow" style="--a: 90deg" aria-hidden="true"></span>
+          <span class="step-arrow" style="--a: 210deg" aria-hidden="true"></span>
+          <ol class="step-list">
+            <li class="step" style="--a: -90deg">
+              <img src="assets/step-topic.svg" alt="" />
+              <span><b>1</b> Choose a topic</span>
+            </li>
+            <li class="step" style="--a: 30deg">
+              <img src="assets/step-email.svg" alt="" />
+              <span><b>2</b> Leave your email</span>
+            </li>
+            <li class="step" style="--a: 150deg">
+              <img src="assets/step-chat.svg" alt="" />
+              <span><b>3</b> Have a chat</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Rules -->
+      <section class="rules" id="rules">
+        <h2><span class="bang">!!</span> Rules</h2>
+        <div class="paper">
+          <ul>
+            <li>Be on time — each session lasts about 30 minutes.</li>
+            <li>Respect the Living Book and their story.</li>
+            <li>No recording or filming without permission.</li>
+            <li>Cancel at least 24 hours in advance.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="faq" id="faq">
+        <h2>FAQ</h2>
+        <details>
+          <summary>What is a Living Book?</summary>
+          <p>A Living Book is a real person who shares their own experiences, interests, or perspectives in a conversation with you.</p>
+        </details>
+        <details>
+          <summary>Is it one on one or a group?</summary>
+          <p>Both. You can join a one on one chat or a small group conversation, depending on the Living Book.</p>
+        </details>
+        <details>
+          <summary>How long is a session?</summary>
+          <p>Each conversation lasts about 30 minutes.</p>
+        </details>
+        <details>
+          <summary>Does it cost anything?</summary>
+          <p>No, it's free.</p>
+        </details>
+        <details>
+          <summary>How can I become a Living Book?</summary>
+          <p>Tap <a href="living-book.html">Be a Living Book?</a> at the top of the page and fill in the form.</p>
+        </details>
+      </section>
+    </main>
+
+    <footer class="site-footer">© 2026 Beyond The Books</footer>
+  </body>
 </html>
