@@ -5,12 +5,12 @@
  */
 
 // Mã phiên bản: mở <URL Web app>?ping=1 để xem Google đang chạy bản nào
-const VERSION = 'btb-2026-10-14-mail';
+const VERSION = 'btb-2026-10-14-nophone';
 
 // 1) Trang Contact (đặt lịch) → tab "Bookings"
 const BOOKINGS = 'Bookings';
 const BOOKING_HEADERS = ['Created at', 'Person ID', 'Living Book', 'Topic', 'Date', 'Time',
-  'Name', 'Email', 'Phone', 'Gender', 'Message'];
+  'Name', 'Email', 'Gender', 'Message'];
 
 // 2) Trang Be a Living Book (living-book.html) → tab "Living Book applications"
 //    Tiêu đề cột = nguyên văn câu hỏi trên trang
@@ -112,7 +112,7 @@ function doPost(e) {
     if (taken) return json_({ ok: false, error: 'taken' });
 
     sheet.appendRow([new Date(), data.personId, data.personName, data.topic, text_(data.date),
-      text_(data.time), data.name, data.email, text_(data.phone), data.gender || '', data.message || '']);
+      text_(data.time), data.name, data.email, data.gender || '', data.message || '']);
     sendMail_(data.email, 'Your Beyond The Books booking is confirmed',
       `Hi ${data.name}, your session is booked! Here are the details:`,
       [['Living Book', data.personName], ['Topic', data.topic], ['Date', data.date], ['Time', data.time]]);

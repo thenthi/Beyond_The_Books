@@ -48,7 +48,6 @@ form.addEventListener('submit', async (e) => {
       time: params.get('time'),
       name: data.name,
       email: data.email,
-      phone: data.phone,
       gender: data.gender,
       message: data.message,
     });
