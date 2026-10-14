@@ -1,34 +1,58 @@
-# Kết nối web với Google Sheet
+# Kết nối web với Google Sheet (làm lại từ đầu)
 
-Sau khi làm xong các bước dưới đây:
+Khi làm xong:
 
-- Mỗi lượt book được lưu thành một dòng trong tab **Bookings** của Sheet.
-- Mỗi đơn "Be a Living Book" được lưu vào tab **Living Book applications**.
-- Mỗi câu trả lời feedback (trang FAQ) được lưu vào tab **Feedback**.
-- Khung giờ đã có người đặt sẽ hiện **Booked** và không bấm được nữa.
+- Mỗi lượt đặt lịch (trang Contact) được lưu vào tab **Bookings**.
+- Mỗi đơn đăng ký **Be a Living Book** được lưu vào tab **Living Book applications**.
+- Khung giờ đã có người đặt sẽ hiện **Booked** và không chọn được nữa.
 
-## Các bước (khoảng 5 phút)
+> Làm trên **một Google Sheet mới tinh**, đừng dùng lại Sheet cũ, để tránh lẫn với code cũ.
 
-1. Vào [sheets.google.com](https://sheets.google.com) và tạo một Google Sheet mới, ví dụ đặt tên **Beyond The Books – Bookings**.
-2. Trên thanh menu của Sheet, chọn **Extensions → Apps Script**.
-3. Xoá hết code có sẵn, dán toàn bộ nội dung file [`Code.gs`](Code.gs) vào, rồi bấm **Save** (biểu tượng đĩa).
-4. Bấm **Deploy → New deployment**:
-   - Ở *Select type* (bánh răng), chọn **Web app**.
-   - *Execute as*: **Me**.
-   - *Who has access*: **Anyone**.
-   - Bấm **Deploy**. Google sẽ hỏi quyền truy cập: chọn tài khoản của bạn → **Advanced** → **Go to … (unsafe)** → **Allow**. Đây là script của chính bạn nên cứ cho phép.
-5. Copy **Web app URL** (có dạng `https://script.google.com/macros/s/…/exec`).
-6. Mở file [`../api.js`](../api.js) và dán URL vào dòng:
+## Bước 1: Tạo Google Sheet mới
 
-   ```js
-   const BOOKING_API_URL = 'https://script.google.com/macros/s/…/exec';
-   ```
+1. Đăng nhập **đúng tài khoản Google** bạn muốn dùng để lưu dữ liệu.
+2. Vào <https://sheets.google.com> và bấm **Blank** (trang tính trống).
+3. Đặt tên ở góc trên bên trái, ví dụ **Beyond The Books – Data**.
 
-7. Lưu file, mở lại web và thử book một lượt. Bạn sẽ thấy tab **Bookings** tự xuất hiện trong Sheet, kèm một dòng dữ liệu mới.
+## Bước 2: Dán code
 
-## Lưu ý
+1. Trên menu của Sheet, chọn **Extensions → Apps Script**. Một tab mới mở ra.
+2. Trong file `Code.gs` có sẵn, **xoá hết** nội dung (Cmd + A rồi Delete).
+3. Mở file [`Code.gs`](Code.gs) trong project này, **copy toàn bộ** và dán vào.
+4. Bấm biểu tượng **đĩa mềm (Save)**.
 
-- **Nếu sửa `Code.gs`**, bạn phải vào **Deploy → Manage deployments → Edit (cây bút) → Version: New version → Deploy** thì thay đổi mới có hiệu lực. URL vẫn giữ nguyên.
-- **Huỷ một lượt book:** xoá dòng đó trong Sheet, khung giờ sẽ trống lại.
-- **Không đổi tên Living Book** trong `data.js` khi đã có người đặt lịch. Lịch đặt được gắn theo mã tạo từ tên, ví dụ `art-linh-nguyen`, nên đổi tên sẽ làm mất liên kết với các lượt đặt cũ.
-- **Khi `BOOKING_API_URL` còn để trống**, web vẫn chạy bình thường nhưng **không lưu gì cả**, và mọi khung giờ đều chọn được.
+## Bước 3: Tạo sẵn các tab (để kiểm tra code đã chạy)
+
+1. Trên thanh công cụ của Apps Script, ở ô chọn hàm (cạnh nút ▶ Run), chọn **`setup`**.
+2. Bấm **▶ Run**.
+3. Lần đầu Google sẽ hỏi quyền: **Review permissions** → chọn tài khoản → **Advanced** → **Go to … (unsafe)** → **Allow**.
+4. Quay lại tab Google Sheet. Bạn sẽ thấy 2 tab mới: **Bookings** và **Living Book applications**, có sẵn hàng tiêu đề. Nếu chưa thấy hai tab này thì code chưa chạy, đừng làm tiếp.
+
+## Bước 4: Deploy (chỉ làm "New deployment" một lần duy nhất)
+
+1. Trong Apps Script, bấm nút xanh **Deploy → New deployment**.
+2. Bấm **bánh răng** cạnh *Select type* → chọn **Web app**.
+3. Điền:
+   - **Execute as:** `Me`
+   - **Who has access:** `Anyone`
+4. Bấm **Deploy** và copy **Web app URL** (dạng `https://script.google.com/macros/s/…/exec`).
+
+## Bước 5: Kiểm tra URL
+
+Dán URL vào trình duyệt và thêm `?ping=1` vào cuối, ví dụ:
+
+```
+https://script.google.com/macros/s/…/exec?ping=1
+```
+
+Trang phải hiện: `{"ok":true,"version":"btb-2026-10-14"}`. Nếu đúng như vậy, gửi URL này cho người phụ trách web để dán vào dòng `BOOKING_API_URL` trong [`../api.js`](../api.js).
+
+## Khi cần sửa code sau này
+
+Sửa `Code.gs` → **Save** → **Deploy → Manage deployments** → bấm **cây bút ✏️ (Edit)** → ở **Version** chọn **New version** → **Deploy**.
+
+Làm theo cách này thì URL giữ nguyên. **Đừng bấm "New deployment" lần nữa**, vì làm vậy sẽ tạo ra URL khác và web vẫn gọi URL cũ đang chạy code cũ.
+
+## Huỷ một lượt đặt lịch
+
+Xoá dòng đó trong tab **Bookings**, khung giờ sẽ trống lại.

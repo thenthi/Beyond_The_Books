@@ -1,5 +1,6 @@
 // Form dạng "khung câu hỏi" dùng chung cho trang Be a Living Book và trang Feedback (FAQ).
 // data-type trên <form> quyết định dữ liệu được lưu vào tab nào trên Google Sheet.
+// data-no-save: không lưu đi đâu cả, chỉ hiện lời cảm ơn (trang FAQ / Feedback).
 const form = document.querySelector('#q-form');
 const submitBtn = form.querySelector('button[type="submit"]');
 const errorBox = document.querySelector('#form-error');
@@ -37,8 +38,10 @@ form.addEventListener('submit', async (e) => {
   submitBtn.textContent = 'Sending…';
 
   try {
-    const result = await sendToSheet({ type: form.dataset.type, ...answers });
-    if (!result.ok) throw new Error(result.error);
+    if (!form.hasAttribute('data-no-save')) {
+      const result = await sendToSheet({ type: form.dataset.type, ...answers });
+      if (!result.ok) throw new Error(result.error);
+    }
     form.hidden = true;
     document.querySelector('#thanks').hidden = false;
     window.scrollTo({ top: 0, behavior: 'smooth' });
