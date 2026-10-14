@@ -29,9 +29,16 @@
       <h1 class="page-title">Feedback for us</h1>
 
       <form id="q-form" class="q-list" data-type="feedback" data-need-one data-no-save>
-          <div class="q-card">
-            <label for="q1"><span class="q-num">Q1</span>What did you like most about Beyond the Book?</label>
-            <textarea id="q1" name="q1" rows="2"></textarea>
+        <p class="q-note">Tap to choose. Answer as many as you like.</p>
+          <div class="q-card" role="group" aria-labelledby="q1-label">
+            <p class="q-label" id="q1-label"><span class="q-num">Q1</span>Overall, how satisfied were you with Beyond the Books?</p>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q1" value="Very dissatisfied" /><span>Very dissatisfied</span></label>
+              <label class="choice"><input type="radio" name="q1" value="Dissatisfied" /><span>Dissatisfied</span></label>
+              <label class="choice"><input type="radio" name="q1" value="Neutral" /><span>Neutral</span></label>
+              <label class="choice"><input type="radio" name="q1" value="Satisfied" /><span>Satisfied</span></label>
+              <label class="choice"><input type="radio" name="q1" value="Very satisfied" /><span>Very satisfied</span></label>
+            </div>
           </div>
           <div class="q-anchor" aria-hidden="true">
             <div class="bouquet right">
@@ -41,23 +48,35 @@
               <img class="bq-flower small" src="assets/flower-6.svg" alt="" />
             </div>
           </div>
-          <div class="q-card">
+          <div class="q-card" role="group" aria-labelledby="q2-label">
             <img class="q-deco q-bee" src="assets/bee.svg" alt="" />
-            <label for="q2"><span class="q-num">Q2</span>What did you like least about the experience?</label>
-            <textarea id="q2" name="q2" rows="2"></textarea>
+            <p class="q-label" id="q2-label"><span class="q-num">Q2</span>Was the booking process easy to use?</p>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q2" value="Yes" /><span>Yes</span></label>
+              <label class="choice"><input type="radio" name="q2" value="Somewhat" /><span>Somewhat</span></label>
+              <label class="choice"><input type="radio" name="q2" value="No" /><span>No</span></label>
+            </div>
           </div>
-          <div class="q-card">
-            <label for="q3"><span class="q-num">Q3</span>Was the booking process easy to use?</label>
-            <textarea id="q3" name="q3" rows="2"></textarea>
+          <div class="q-card" role="group" aria-labelledby="q3-label">
+            <p class="q-label" id="q3-label"><span class="q-num">Q3</span>Did Beyond the Books help you feel more connected to others?</p>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q3" value="Yes" /><span>Yes</span></label>
+              <label class="choice"><input type="radio" name="q3" value="A little" /><span>A little</span></label>
+              <label class="choice"><input type="radio" name="q3" value="No" /><span>No</span></label>
+            </div>
           </div>
-          <div class="q-card">
+          <div class="q-card" role="group" aria-labelledby="q4-label">
             <svg class="q-deco q-butterfly" viewBox="0 0 40 32" aria-hidden="true">
               <g class="wing wing-l"><path d="M20 16C14 2 2 2 3 10S12 18 20 16ZM20 17C12 18 6 24 9 29S18 26 20 17Z" /></g>
               <g class="wing wing-r"><path d="M20 16C26 2 38 2 37 10S28 18 20 16ZM20 17C28 18 34 24 31 29S22 26 20 17Z" /></g>
               <path d="M20 9V26" stroke="#1f2a27" stroke-width="2" stroke-linecap="round" />
             </svg>
-            <label for="q4"><span class="q-num">Q4</span>Did Beyond the Book help you feel more connected to others?</label>
-            <textarea id="q4" name="q4" rows="2"></textarea>
+            <p class="q-label" id="q4-label"><span class="q-num">Q4</span>How was the length of your session?</p>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q4" value="Too short" /><span>Too short</span></label>
+              <label class="choice"><input type="radio" name="q4" value="Just right" /><span>Just right</span></label>
+              <label class="choice"><input type="radio" name="q4" value="Too long" /><span>Too long</span></label>
+            </div>
           </div>
           <div class="q-anchor" aria-hidden="true">
             <div class="bouquet left">
@@ -67,17 +86,33 @@
               <img class="bq-flower small" src="assets/flower-2.svg" alt="" />
             </div>
           </div>
-          <div class="q-card">
-            <label for="q5"><span class="q-num">Q5</span>What topic would you like to have in the future?</label>
-            <textarea id="q5" name="q5" rows="2"></textarea>
+          <div class="q-card" role="group" aria-labelledby="q5-label">
+            <p class="q-label" id="q5-label"><span class="q-num">Q5</span>Would you join another session in the future?</p>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q5" value="Yes" /><span>Yes</span></label>
+              <label class="choice"><input type="radio" name="q5" value="Maybe" /><span>Maybe</span></label>
+              <label class="choice"><input type="radio" name="q5" value="No" /><span>No</span></label>
+            </div>
           </div>
-          <div class="q-card">
-            <label for="q6"><span class="q-num">Q6</span>Would you join another session in the future? Why or why not?</label>
-            <textarea id="q6" name="q6" rows="4"></textarea>
+          <div class="q-card" role="group" aria-labelledby="q6-label">
+            <p class="q-label" id="q6-label"><span class="q-num">Q6</span>Would you recommend Beyond the Books to a friend?</p>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q6" value="Yes" /><span>Yes</span></label>
+              <label class="choice"><input type="radio" name="q6" value="Maybe" /><span>Maybe</span></label>
+              <label class="choice"><input type="radio" name="q6" value="No" /><span>No</span></label>
+            </div>
           </div>
-          <div class="q-card">
-            <label for="q7"><span class="q-num">Q7</span>What do you think could improve?</label>
-            <textarea id="q7" name="q7" rows="4"></textarea>
+          <div class="q-card" role="group" aria-labelledby="q7-label">
+            <p class="q-label" id="q7-label"><span class="q-num">Q7</span>Which topics would you like to see more of? <small>(choose any)</small></p>
+            <div class="choices">
+              <label class="choice"><input type="checkbox" name="q7" value="Art" /><span>Art</span></label>
+              <label class="choice"><input type="checkbox" name="q7" value="Cooking" /><span>Cooking</span></label>
+              <label class="choice"><input type="checkbox" name="q7" value="Celebrity" /><span>Celebrity</span></label>
+              <label class="choice"><input type="checkbox" name="q7" value="Sport" /><span>Sport</span></label>
+              <label class="choice"><input type="checkbox" name="q7" value="Fashion" /><span>Fashion</span></label>
+              <label class="choice"><input type="checkbox" name="q7" value="Film" /><span>Film</span></label>
+              <label class="choice"><input type="checkbox" name="q7" value="Something new" /><span>Something new</span></label>
+            </div>
           </div>
           <div class="q-anchor" aria-hidden="true">
             <div class="bouquet right">
@@ -88,10 +123,9 @@
             </div>
           </div>
           <div class="q-card">
-            <label for="q8"><span class="q-num">Q8</span>What do you think could be removed?</label>
-            <textarea id="q8" name="q8" rows="4"></textarea>
+            <label for="q8"><span class="q-num">Q8</span>Anything else you'd like to tell us? <small>(optional)</small></label>
+            <textarea id="q8" name="q8" rows="3" placeholder="What you loved, what we could improve…"></textarea>
           </div>
-
 
         <p class="form-error" id="form-error" role="alert" hidden></p>
         <button class="btn q-submit" type="submit">Submit</button>

@@ -5,7 +5,7 @@
  */
 
 // Mã phiên bản: mở <URL Web app>?ping=1 để xem Google đang chạy bản nào
-const VERSION = 'btb-2026-10-14';
+const VERSION = 'btb-2026-10-14-mail';
 
 // 1) Trang Contact (đặt lịch) → tab "Bookings"
 const BOOKINGS = 'Bookings';
@@ -45,9 +45,38 @@ function json_(obj) {
 const text_ = (v) => "'" + String(v || '');
 
 // Chạy hàm này 1 lần trong Apps Script (nút ▶ Run) để tạo sẵn 2 tab với đúng tiêu đề cột
+// và cấp quyền gửi email cho script
 function setup() {
   getSheet_(BOOKINGS, BOOKING_HEADERS);
   getSheet_(LIVING_BOOKS, LIVING_HEADERS);
+  Logger.log('Emails left today: ' + MailApp.getRemainingDailyQuota());
+}
+
+// ===== Email xác nhận gửi về cho người dùng =====
+const PRIVACY_NOTE = 'Your personal information is kept private and secure. It is only used by the ' +
+  'Beyond The Books team to organise your session and will never be shared with anyone else.';
+
+const esc_ = (v) => String(v || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function sendMail_(to, subject, intro, rows) {
+  if (!to) return;
+  const table = rows.map(([k, v]) =>
+    `<tr><td style="padding:4px 12px 4px 0;color:#6b6b6b">${esc_(k)}</td><td style="padding:4px 0"><b>${esc_(v)}</b></td></tr>`).join('');
+  const html = `<div style="font-family:Arial,sans-serif;color:#1f2a27;line-height:1.5;max-width:520px">
+    <h2 style="color:#304e63;margin:0 0 12px">Beyond The Books</h2>
+    <p>${esc_(intro)}</p>
+    ${table ? `<table style="border-collapse:collapse;margin:12px 0">${table}</table>` : ''}
+    <p style="padding:12px 14px;background:#fff7ec;border-left:4px solid #a8bfa3;border-radius:6px">🔒 ${PRIVACY_NOTE}</p>
+    <p>See you soon,<br>The Beyond The Books team</p>
+  </div>`;
+  const text = intro + '\n\n' + rows.map(([k, v]) => `${k}: ${v}`).join('\n') +
+    '\n\n' + PRIVACY_NOTE + '\n\nThe Beyond The Books team';
+  // Lỗi gửi mail (sai địa chỉ, hết hạn mức) không được làm hỏng việc lưu dữ liệu
+  try {
+    MailApp.sendEmail({ to: to, subject: subject, body: text, htmlBody: html, name: 'Beyond The Books' });
+  } catch (err) {
+    console.error('Email failed: ' + err);
+  }
 }
 
 // GET ?ping=1        →  kiểm tra phiên bản code đang chạy
@@ -72,6 +101,8 @@ function doPost(e) {
     if (data.type === 'livingbook') {
       getSheet_(LIVING_BOOKS, LIVING_HEADERS).appendRow([new Date(),
         data.q1, data.q2, data.q3, data.q4, data.q5, data.q6, data.q7]);
+      sendMail_(data.q2, 'We received your Living Book application',
+        `Hi ${data.q1}, thank you for applying to be a Living Book! We have received your application and will get back to you soon.`, []);
       return json_({ ok: true });
     }
 
@@ -82,6 +113,9 @@ function doPost(e) {
 
     sheet.appendRow([new Date(), data.personId, data.personName, data.topic, text_(data.date),
       text_(data.time), data.name, data.email, text_(data.phone), data.gender || '', data.message || '']);
+    sendMail_(data.email, 'Your Beyond The Books booking is confirmed',
+      `Hi ${data.name}, your session is booked! Here are the details:`,
+      [['Living Book', data.personName], ['Topic', data.topic], ['Date', data.date], ['Time', data.time]]);
     return json_({ ok: true });
   } finally {
     lock.releaseLock();

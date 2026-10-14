@@ -45,7 +45,7 @@ Dán URL vào trình duyệt và thêm `?ping=1` vào cuối, ví dụ:
 https://script.google.com/macros/s/…/exec?ping=1
 ```
 
-Trang phải hiện: `{"ok":true,"version":"btb-2026-10-14"}`. Nếu đúng như vậy, gửi URL này cho người phụ trách web để dán vào dòng `BOOKING_API_URL` trong [`../api.js`](../api.js).
+Trang phải hiện: `{"ok":true,"version":"btb-2026-10-14-mail"}`. Nếu đúng như vậy, gửi URL này cho người phụ trách web để dán vào dòng `BOOKING_API_URL` trong [`../api.js`](../api.js).
 
 ## Khi cần sửa code sau này
 
@@ -56,3 +56,10 @@ Làm theo cách này thì URL giữ nguyên. **Đừng bấm "New deployment" l�
 ## Huỷ một lượt đặt lịch
 
 Xoá dòng đó trong tab **Bookings**, khung giờ sẽ trống lại.
+
+## Email xác nhận
+
+Sau khi đặt lịch hoặc gửi đơn Be a Living Book, người dùng sẽ nhận được email xác nhận, trong đó có câu cam kết bảo mật thông tin. Email được gửi từ tài khoản Google sở hữu Sheet, tên người gửi hiện là **Beyond The Books**.
+
+- Tài khoản Gmail thường gửi được khoảng **100 email mỗi ngày**.
+- Nếu gửi email bị lỗi, dữ liệu vẫn được lưu vào Sheet như bình thường.
