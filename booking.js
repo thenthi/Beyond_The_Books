@@ -72,7 +72,7 @@ list.addEventListener('click', (e) => {
 
 // Chạm vào mép card: card trồi lên cho xem thông tin. Chạm lần nữa vào card đang trồi: sang trang đặt lịch
 function dropCards(scope = list) {
-  scope.querySelectorAll('.book-card.lifted').forEach((c) => c.classList.remove('lifted'));
+  scope.querySelectorAll('.book-card.lifted, .book-card.behind').forEach((c) => c.classList.remove('lifted', 'behind'));
   scope.querySelectorAll('.topic.has-lifted').forEach((t) => t.classList.remove('has-lifted'));
 }
 
@@ -83,6 +83,12 @@ list.addEventListener('click', (e) => {
   dropCards();
   card.classList.add('lifted');
   card.closest('.topic').classList.add('has-lifted');
+  // các card nằm sau cũng nhô lên theo để mép của chúng vẫn ló ra phía trên
+  let prev = card.previousElementSibling;
+  while (prev) {
+    prev.classList.add('behind');
+    prev = prev.previousElementSibling;
+  }
 });
 
 // chạm ra ngoài thì card hạ xuống lại

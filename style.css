@@ -784,6 +784,12 @@ body:has(.rules) .site-footer {
   transition-delay: 0s;
 }
 
+/* card nằm sau card đang xem: nhô lên cùng, vẫn lộ mép phía trên */
+.topic.open .book-card.behind {
+  transform: translateY(calc(var(--lift) * -1));
+  transition-delay: 0s;
+}
+
 /* chừa chỗ phía trên để card trồi lên không đè lên topic khác */
 .deck {
   transition: padding-top 0.4s ease;
