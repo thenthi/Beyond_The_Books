@@ -8,8 +8,12 @@ const BOOKINGS = 'Bookings';
 const BOOKING_HEADERS = ['Created at', 'Person ID', 'Living Book', 'Topic', 'Date', 'Time',
   'Name', 'Email', 'Phone', 'Gender', 'Message'];
 
-const LIVING_BOOKS = 'Be a Living Book answers';
-const LIVING_HEADERS = ['Created at',
+const LIVING_BOOKS = 'Living Book applications';
+const LIVING_HEADERS = ['Created at', 'Name', 'Email', 'Contact', 'Language',
+  'Topics they can talk about', 'Why be a Living Book', 'Experience with similar events', 'Qualities'];
+
+const FEEDBACK = 'Feedback';
+const FEEDBACK_HEADERS = ['Created at',
   'Q1 What did you like most about Beyond the Book?',
   'Q2 What did you like least about the experience?',
   'Q3 Was the booking process easy to use?',
@@ -55,9 +59,12 @@ function doPost(e) {
   lock.waitLock(10000); // tránh 2 người đặt cùng lúc
 
   try {
-    if (data.type === 'livingbook') {
-      getSheet_(LIVING_BOOKS, LIVING_HEADERS).appendRow([new Date(),
-        data.q1, data.q2, data.q3, data.q4, data.q5, data.q6, data.q7, data.q8]);
+    if (data.type === 'livingbook' || data.type === 'feedback') {
+      const sheet = data.type === 'livingbook'
+        ? getSheet_(LIVING_BOOKS, LIVING_HEADERS)
+        : getSheet_(FEEDBACK, FEEDBACK_HEADERS);
+      sheet.appendRow([new Date(), data.q1, data.q2, text_(data.q3), data.q4,
+        data.q5, data.q6, data.q7, data.q8]);
       return json_({ ok: true });
     }
 

@@ -27,3 +27,17 @@ function updateHeader() {
 
 window.addEventListener('scroll', updateHeader, { passive: true });
 updateHeader();
+
+// Phần tử có data-reveal hiện dần lên khi cuộn tới (vd. các tờ note Rules ở trang chủ)
+const revealItems = document.querySelectorAll('[data-reveal]');
+if (revealItems.length) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('shown');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  revealItems.forEach((el) => revealObserver.observe(el));
+}

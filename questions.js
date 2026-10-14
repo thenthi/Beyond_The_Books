@@ -1,4 +1,6 @@
-const form = document.querySelector('#living-form');
+// Form dạng "khung câu hỏi" dùng chung cho trang Be a Living Book và trang Feedback (FAQ).
+// data-type trên <form> quyết định dữ liệu được lưu vào tab nào trên Google Sheet.
+const form = document.querySelector('#q-form');
 const submitBtn = form.querySelector('button[type="submit"]');
 const errorBox = document.querySelector('#form-error');
 
@@ -13,12 +15,20 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.q-card').forEach((card) => observer.observe(card));
 
+function showError(text) {
+  errorBox.textContent = text;
+  errorBox.hidden = false;
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Submit';
+}
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const answers = Object.fromEntries(new FormData(form));
-  if (!Object.values(answers).some((v) => v.trim())) {
-    errorBox.textContent = 'Please answer at least one question.';
-    errorBox.hidden = false;
+
+  // Form feedback: không bắt buộc câu nào, nhưng phải trả lời ít nhất 1 câu
+  if (form.hasAttribute('data-need-one') && !Object.values(answers).some((v) => v.trim())) {
+    showError('Please answer at least one question.');
     return;
   }
 
@@ -27,15 +37,12 @@ form.addEventListener('submit', async (e) => {
   submitBtn.textContent = 'Sending…';
 
   try {
-    const result = await sendToSheet({ type: 'livingbook', ...answers });
+    const result = await sendToSheet({ type: form.dataset.type, ...answers });
     if (!result.ok) throw new Error(result.error);
     form.hidden = true;
     document.querySelector('#thanks').hidden = false;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (err) {
-    errorBox.textContent = 'Something went wrong. Please try again.';
-    errorBox.hidden = false;
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit';
+    showError('Something went wrong. Please try again.');
   }
 });

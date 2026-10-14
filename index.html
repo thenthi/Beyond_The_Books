@@ -20,7 +20,7 @@
       <nav class="navbar" id="main-nav" aria-label="Main navigation">
         <a class="active" href="index.html">Home</a>
         <a href="booking.html">Booking</a>
-        <a href="index.html#faq">FAQ</a>
+        <a href="faq.html">FAQ</a>
       </nav>
     </header>
 
@@ -33,15 +33,8 @@
 
       <!-- About -->
       <section class="about">
-        <svg class="deco deco-envelope" viewBox="0 0 48 36" aria-hidden="true">
-          <rect x="2" y="2" width="44" height="32" rx="3" />
-          <path d="M2 4l22 17L46 4" />
-        </svg>
-        <svg class="deco deco-gift" viewBox="0 0 44 44" aria-hidden="true">
-          <rect x="4" y="16" width="36" height="26" rx="2" />
-          <rect x="2" y="10" width="40" height="8" rx="2" />
-          <path d="M22 10v32M22 10c-4-8-14-8-12-2s12 2 12 2zM22 10c4-8 14-8 12-2s-12 2-12 2z" />
-        </svg>
+        <img class="deco deco-envelope" src="assets/flower-5.svg" alt="" />
+        <img class="deco deco-gift" src="assets/flower-6.svg" alt="" />
         <h2>About us</h2>
         <p>
           Beyond the Book is a project that brings people together through stories,
@@ -91,15 +84,16 @@
         </div>
       </section>
 
-      <!-- Rules: dải nền tối -->
+      <!-- Rules: mỗi rule là một tờ note dán lên, hiện dần khi cuộn tới -->
       <section class="rules" id="rules">
         <h2><span class="bang">!!</span> Rules</h2>
-        <ol class="rule-list">
-          <li>Be respectful</li>
-          <li>Avoid overly personal questions</li>
-          <li>Keep all conversations within the library</li>
-          <li>Do not give out personal information</li>
-          <li>Have fun!</li>
+        <p class="rules-sub">Please read before your session</p>
+        <ol class="rule-notes">
+          <li data-reveal>Be respectful</li>
+          <li data-reveal>Avoid overly personal questions</li>
+          <li data-reveal>Keep all conversations within the library</li>
+          <li data-reveal>Do not give out personal information</li>
+          <li data-reveal>Have fun!</li>
         </ol>
       </section>
     </main>

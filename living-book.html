@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
     <script src="api.js" defer></script>
-    <script src="living-book.js" defer></script>
+    <script src="questions.js" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -21,17 +21,18 @@
       <nav class="navbar" id="main-nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="booking.html">Booking</a>
-        <a href="index.html#faq">FAQ</a>
+        <a href="faq.html">FAQ</a>
       </nav>
     </header>
 
     <main class="page">
       <h1 class="page-title">Be a Living Book</h1>
 
-      <form id="living-form" class="q-list">
+      <form id="q-form" class="q-list" data-type="livingbook">
+        <h2 class="q-section">About you</h2>
           <div class="q-card">
-            <label for="q1"><span class="q-num">Q1</span>What did you like most about Beyond the Book?</label>
-            <textarea id="q1" name="q1" rows="2"></textarea>
+            <label for="q1"><span class="q-num">Q1</span>What's your name? *</label>
+            <input id="q1" name="q1" required autocomplete="name" />
           </div>
           <div class="q-anchor" aria-hidden="true">
             <div class="bouquet right">
@@ -43,12 +44,12 @@
           </div>
           <div class="q-card">
             <img class="q-deco q-bee" src="assets/bee.svg" alt="" />
-            <label for="q2"><span class="q-num">Q2</span>What did you like least about the experience?</label>
-            <textarea id="q2" name="q2" rows="2"></textarea>
+            <label for="q2"><span class="q-num">Q2</span>Email address *</label>
+            <input id="q2" name="q2" type="email" required autocomplete="email" />
           </div>
           <div class="q-card">
-            <label for="q3"><span class="q-num">Q3</span>Was the booking process easy to use?</label>
-            <textarea id="q3" name="q3" rows="2"></textarea>
+            <label for="q3"><span class="q-num">Q3</span>Contact</label>
+            <input id="q3" name="q3" autocomplete="tel" placeholder="Phone number, Instagram, Facebook…" />
           </div>
           <div class="q-card">
             <svg class="q-deco q-butterfly" viewBox="0 0 40 32" aria-hidden="true">
@@ -56,8 +57,8 @@
               <g class="wing wing-r"><path d="M20 16C26 2 38 2 37 10S28 18 20 16ZM20 17C28 18 34 24 31 29S22 26 20 17Z" /></g>
               <path d="M20 9V26" stroke="#1f2a27" stroke-width="2" stroke-linecap="round" />
             </svg>
-            <label for="q4"><span class="q-num">Q4</span>Did Beyond the Book help you feel more connected to others?</label>
-            <textarea id="q4" name="q4" rows="2"></textarea>
+            <label for="q4"><span class="q-num">Q4</span>What language are you comfortable having a conversation in?</label>
+            <input id="q4" name="q4" placeholder="e.g. English, Vietnamese" />
           </div>
           <div class="q-anchor" aria-hidden="true">
             <div class="bouquet left">
@@ -68,15 +69,15 @@
             </div>
           </div>
           <div class="q-card">
-            <label for="q5"><span class="q-num">Q5</span>What topic would you like to have in the future?</label>
-            <textarea id="q5" name="q5" rows="2"></textarea>
+            <label for="q5"><span class="q-num">Q5</span>Which topics would you feel comfortable/confident talking about as a Living Book?</label>
+            <textarea id="q5" name="q5" rows="3"></textarea>
           </div>
           <div class="q-card">
-            <label for="q6"><span class="q-num">Q6</span>Would you join another session in the future? Why or why not?</label>
+            <label for="q6"><span class="q-num">Q6</span>Why would you like to be a Living Book? What interested you?</label>
             <textarea id="q6" name="q6" rows="4"></textarea>
           </div>
           <div class="q-card">
-            <label for="q7"><span class="q-num">Q7</span>What do you think could improve?</label>
+            <label for="q7"><span class="q-num">Q7</span>Do you have experience with similar events? Can you tell us more about it?</label>
             <textarea id="q7" name="q7" rows="4"></textarea>
           </div>
           <div class="q-anchor" aria-hidden="true">
@@ -88,10 +89,9 @@
             </div>
           </div>
           <div class="q-card">
-            <label for="q8"><span class="q-num">Q8</span>What do you think could be removed?</label>
+            <label for="q8"><span class="q-num">Q8</span>What qualities do you have that would make you a good Living Book?</label>
             <textarea id="q8" name="q8" rows="4"></textarea>
           </div>
-
 
         <p class="form-error" id="form-error" role="alert" hidden></p>
         <button class="btn q-submit" type="submit">Submit</button>
@@ -99,7 +99,7 @@
 
       <div class="thanks card" id="thanks" hidden>
         <h2>Thank you!</h2>
-        <p>Your answers help us make Beyond the Book better.</p>
+        <p>We've received your answers and will get in touch with you soon.</p>
         <a class="btn" href="index.html">Back to home</a>
       </div>
     </main>

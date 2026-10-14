@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback · Beyond The Books</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="image.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <script src="api.js" defer></script>
+    <script src="questions.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo" href="index.html">Beyond The Books</a>
+      <div class="header-actions">
+        <a class="header-cta" href="living-book.html">Be a Living Book?</a>
+        <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav"></button>
+      </div>
+      <nav class="navbar" id="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a class="active" href="faq.html">FAQ</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <h1 class="page-title">Feedback for us</h1>
+
+      <form id="q-form" class="q-list" data-type="feedback" data-need-one>
+          <div class="q-card">
+            <label for="q1"><span class="q-num">Q1</span>What did you like most about Beyond the Book?</label>
+            <textarea id="q1" name="q1" rows="2"></textarea>
+          </div>
+          <div class="q-anchor" aria-hidden="true">
+            <div class="bouquet right">
+              <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
+              <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
+              <img class="bq-flower big" src="assets/flower-5.svg" alt="" />
+              <img class="bq-flower small" src="assets/flower-6.svg" alt="" />
+            </div>
+          </div>
+          <div class="q-card">
+            <img class="q-deco q-bee" src="assets/bee.svg" alt="" />
+            <label for="q2"><span class="q-num">Q2</span>What did you like least about the experience?</label>
+            <textarea id="q2" name="q2" rows="2"></textarea>
+          </div>
+          <div class="q-card">
+            <label for="q3"><span class="q-num">Q3</span>Was the booking process easy to use?</label>
+            <textarea id="q3" name="q3" rows="2"></textarea>
+          </div>
+          <div class="q-card">
+            <svg class="q-deco q-butterfly" viewBox="0 0 40 32" aria-hidden="true">
+              <g class="wing wing-l"><path d="M20 16C14 2 2 2 3 10S12 18 20 16ZM20 17C12 18 6 24 9 29S18 26 20 17Z" /></g>
+              <g class="wing wing-r"><path d="M20 16C26 2 38 2 37 10S28 18 20 16ZM20 17C28 18 34 24 31 29S22 26 20 17Z" /></g>
+              <path d="M20 9V26" stroke="#1f2a27" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <label for="q4"><span class="q-num">Q4</span>Did Beyond the Book help you feel more connected to others?</label>
+            <textarea id="q4" name="q4" rows="2"></textarea>
+          </div>
+          <div class="q-anchor" aria-hidden="true">
+            <div class="bouquet left">
+              <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
+              <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
+              <img class="bq-flower big" src="assets/flower-1.svg" alt="" />
+              <img class="bq-flower small" src="assets/flower-2.svg" alt="" />
+            </div>
+          </div>
+          <div class="q-card">
+            <label for="q5"><span class="q-num">Q5</span>What topic would you like to have in the future?</label>
+            <textarea id="q5" name="q5" rows="2"></textarea>
+          </div>
+          <div class="q-card">
+            <label for="q6"><span class="q-num">Q6</span>Would you join another session in the future? Why or why not?</label>
+            <textarea id="q6" name="q6" rows="4"></textarea>
+          </div>
+          <div class="q-card">
+            <label for="q7"><span class="q-num">Q7</span>What do you think could improve?</label>
+            <textarea id="q7" name="q7" rows="4"></textarea>
+          </div>
+          <div class="q-anchor" aria-hidden="true">
+            <div class="bouquet right">
+              <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
+              <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
+              <img class="bq-flower big" src="assets/flower-6.svg" alt="" />
+              <img class="bq-flower small" src="assets/flower-4.svg" alt="" />
+            </div>
+          </div>
+          <div class="q-card">
+            <label for="q8"><span class="q-num">Q8</span>What do you think could be removed?</label>
+            <textarea id="q8" name="q8" rows="4"></textarea>
+          </div>
+
+
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <button class="btn q-submit" type="submit">Submit</button>
+      </form>
+
+      <div class="thanks card" id="thanks" hidden>
+        <h2>Thank you!</h2>
+        <p>Your answers help us make Beyond the Book better.</p>
+        <a class="btn" href="index.html">Back to home</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">© 2026 Beyond The Books</footer>
+  </body>
+</html>

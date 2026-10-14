@@ -384,7 +384,7 @@ h2 {
 
 .deco {
   position: absolute;
-  width: 34px;
+  width: 40px;
   fill: #fff;
   stroke: var(--text);
   stroke-width: 1.6;
@@ -393,13 +393,13 @@ h2 {
 }
 
 .deco-envelope {
-  left: 0;
+  left: -6px;
   top: 40%;
   rotate: -12deg;
 }
 
 .deco-gift {
-  right: 0;
+  right: -6px;
   top: 10%;
   rotate: 10deg;
   animation-delay: -1.5s;
@@ -515,16 +515,14 @@ h2 {
 }
 
 /* ===== Rules (chỉ dải Rules + footer chuyển tối khi cuộn tới) ===== */
-/* Dải Rules luôn tối, tràn hết chiều ngang và kéo xuống tới footer */
+/* Dải Rules nền navy (palette), tràn hết chiều ngang và kéo xuống tới footer */
 .rules {
-  --band: #141b19;
-  --text: #f3ede2;
-  --muted: #a9b4ae;
-  --line: rgba(243, 237, 226, 0.16);
+  --band: #304e63;
   margin-top: 24px;
-  padding-block: 56px 24px;
+  padding-block: 56px 32px;
   scroll-margin-top: 80px;
-  color: var(--text);
+  color: #fff7ec;
+  text-align: center;
   background: var(--band);
   box-shadow: 0 0 0 100vmax var(--band);
   clip-path: inset(0 -100vmax -100vmax);
@@ -532,34 +530,108 @@ h2 {
 
 body:has(.rules) .site-footer {
   position: relative;
-  color: #a9b4ae;
+  color: #c9d6dc;
 }
 
 .rules h2 {
-  font-size: 34px;
+  font-size: 40px;
+  margin-bottom: 4px;
 }
 
-.rule-list {
+.rules .bang {
+  display: inline-block;
+  color: #f3c969;
+  animation: wiggle 1.6s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 60%, 100% { rotate: 0deg; }
+  70% { rotate: -14deg; }
+  80% { rotate: 12deg; }
+  90% { rotate: -6deg; }
+}
+
+/* dòng nhắc có gạch chân vẽ tay màu vàng */
+.rules-sub {
+  display: inline-block;
+  margin-bottom: 28px;
+  padding: 0 4px 6px;
+  font-family: var(--hand);
+  font-size: 24px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6C40 2 80 9 120 5S180 3 198 6' fill='none' stroke='%23f3c969' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") bottom / 100% 10px no-repeat;
+}
+
+/* mỗi rule là một tờ note */
+.rule-notes {
   list-style: none;
   counter-reset: rule;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  text-align: left;
 }
 
-.rule-list li {
+.rule-notes li {
+  --note: #f3c969;
+  --tilt: -1.5deg;
+  position: relative;
   counter-increment: rule;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 16px;
-  padding: 16px 4px;
-  border-bottom: 1px solid var(--line);
+  padding: 18px 20px;
+  background: var(--note);
+  color: #304e63;
+  border-radius: 4px 4px 14px 4px;
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1.3;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+  rotate: var(--tilt);
+  /* trước khi hiện: lơ lửng phía trên */
+  opacity: 0;
+  translate: 0 -30px;
+  transition: opacity 0.5s ease, translate 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
 }
 
-.rule-list li::before {
-  content: "0" counter(rule);
+.rule-notes li:nth-child(2) { --note: #fff7ec; --tilt: 1.2deg; transition-delay: 0.12s; }
+.rule-notes li:nth-child(3) { --note: #a8bfa3; --tilt: -0.8deg; transition-delay: 0.24s; }
+.rule-notes li:nth-child(4) { --note: #f28b75; --tilt: 1.6deg; transition-delay: 0.36s; }
+.rule-notes li:nth-child(5) { --note: #f3c969; --tilt: -1.2deg; transition-delay: 0.48s; }
+
+.rule-notes li.shown {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* số thứ tự viết tay thật to */
+.rule-notes li::before {
+  content: counter(rule);
+  flex-shrink: 0;
+  width: 44px;
   font-family: var(--hand);
-  font-size: 26px;
-  color: var(--accent);
+  font-size: 48px;
+  line-height: 1;
+  text-align: center;
+}
+
+/* miếng băng dính dán phía trên */
+.rule-notes li::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 70px;
+  height: 20px;
+  translate: -50% 0;
+  rotate: -3deg;
+  background: rgba(255, 247, 236, 0.55);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.rule-notes li:hover {
+  rotate: 0deg;
+  scale: 1.02;
 }
 
 /* ===== Booking: bìa topic + chồng card ===== */
@@ -1325,6 +1397,14 @@ body:has(.rules) .site-footer {
   margin-bottom: 4px;
 }
 
+.q-section {
+  font-family: var(--hand);
+  font-size: 30px;
+  color: #f28b75;
+  margin-bottom: -16px;
+}
+
+.q-card input,
 .q-card textarea {
   width: 100%;
   padding: 10px 12px;
@@ -1335,6 +1415,7 @@ body:has(.rules) .site-footer {
   resize: vertical;
 }
 
+.q-card input:focus,
 .q-card textarea:focus {
   outline: 3px solid #a8bfa3;
   outline-offset: 1px;
