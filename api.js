@@ -1,6 +1,6 @@
 // Kết nối với Google Sheet (qua Google Apps Script). Hướng dẫn: apps-script/README.md
 // Dán URL Web App (kết thúc bằng /exec) vào đây:
-const BOOKING_API_URL = '';
+const BOOKING_API_URL = 'https://script.google.com/macros/s/AKfycbzgdUtIK2v3iPvCx5aJN377LgaUesdqg7qLC6rQmA62eDO4C7aUEYDd-JmQIO_Zt6wr1A/exec';
 
 // Lấy các khung giờ đã có người đặt: [{ date: '2026-10-17', time: '10:30' }, ...]
 async function fetchBooked(personId) {
