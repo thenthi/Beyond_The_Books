@@ -16,11 +16,53 @@ if (booking && params.get('date') && params.get('time')) {
   summary.innerHTML = 'You haven\'t picked a session yet. <a href="booking.html">Choose a topic →</a>';
 }
 
-form.addEventListener('submit', (e) => {
+const submitBtn = form.querySelector('button[type="submit"]');
+const errorBox = document.querySelector('#form-error');
+
+function showError(html) {
+  errorBox.innerHTML = html;
+  errorBox.hidden = false;
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Submit';
+}
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  // TODO: gửi dữ liệu đi (Google Form / Formspree / backend). Hiện tại chỉ hiển thị cảm ơn.
+  if (!booking || !params.get('date') || !params.get('time')) {
+    showError('Please <a href="booking.html">choose a Living Book and a time</a> first.');
+    return;
+  }
+
+  errorBox.hidden = true;
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending…';
+
   const data = Object.fromEntries(new FormData(form));
-  console.log('Booking:', { ...data, ...Object.fromEntries(params) });
-  form.hidden = true;
-  document.querySelector('#thanks').hidden = false;
+  try {
+    const result = await sendToSheet({
+      type: 'booking',
+      personId: booking.person.id,
+      personName: booking.person.name,
+      topic: booking.topic.title,
+      date: params.get('date'),
+      time: params.get('time'),
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      gender: data.gender,
+      message: data.message,
+    });
+
+    if (!result.ok && result.error === 'taken') {
+      const back = `detail.html?topic=${booking.topic.id}&person=${params.get('person')}`;
+      showError(`Sorry, someone just booked this time. <a href="${back}">Pick another time →</a>`);
+      return;
+    }
+    if (!result.ok) throw new Error(result.error);
+
+    form.hidden = true;
+    document.querySelector('#thanks').hidden = false;
+  } catch (err) {
+    showError('Something went wrong. Please try again.');
+  }
 });

@@ -791,14 +791,24 @@ body:has(.rules) .site-footer {
   margin-top: 4px;
 }
 
-.info-flower {
+.info-vine {
   position: absolute;
-  width: 30px;
-  animation: spin 12s linear infinite;
+  top: -16px;
+  right: -12px;
+  width: 190px;
+  height: auto;
+  pointer-events: none;
 }
 
-.info-flower.f1 { top: -14px; right: 18px; }
-.info-flower.f2 { top: -6px; right: -10px; width: 22px; animation-direction: reverse; }
+.vine-line {
+  fill: none;
+  stroke: #5b7b63;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: grow 1.6s ease-out forwards;
+}
 
 @keyframes spin {
   to { rotate: 360deg; }
@@ -857,12 +867,21 @@ body:has(.rules) .site-footer {
   cursor: pointer;
 }
 
-.day:not(:disabled):not(.selected) {
-  background: rgba(201, 220, 201, 0.55);
+.day:hover:not(:disabled):not(.selected) {
+  background: rgba(168, 191, 163, 0.35);
 }
 
-.day:hover:not(:disabled) {
-  background: var(--sage);
+/* chấm nhỏ đánh dấu hôm nay */
+.day.today::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 14%;
+  width: 5px;
+  height: 5px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: #f28b75;
 }
 
 .day:disabled {
@@ -872,8 +891,12 @@ body:has(.rules) .site-footer {
 }
 
 .day.selected {
-  color: var(--accent);
+  color: #f28b75;
   font-weight: 800;
+}
+
+.day.selected.today::after {
+  display: none;
 }
 
 /* vòng tròn vẽ tay */
@@ -883,7 +906,7 @@ body:has(.rules) .site-footer {
   width: calc(100% + 8px);
   height: calc(100% + 8px);
   fill: none;
-  stroke: var(--accent);
+  stroke: #f28b75;
   stroke-width: 3;
   stroke-linecap: round;
   stroke-dasharray: 180;
@@ -910,7 +933,7 @@ body:has(.rules) .site-footer {
 
 .time-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
@@ -924,21 +947,59 @@ body:has(.rules) .site-footer {
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
-.slot:hover {
+.slot:hover:not(:disabled) {
   background: var(--sage);
+}
+
+.slot:disabled {
+  opacity: 0.35;
+  cursor: default;
+  background: transparent;
+}
+
+/* giờ đã có người đặt */
+.slot.booked {
+  text-decoration: line-through;
+}
+
+.slot small {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* đổi màu khi bấm */
+.slot:disabled {
+  opacity: 0.35;
+  cursor: default;
+  background: transparent;
+}
+
+/* giờ đã có người đặt */
+.slot.booked {
+  text-decoration: line-through;
+}
+
+.slot small {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 /* đổi màu khi bấm */
 .slot.selected {
-  background: var(--text);
-  color: #fff;
+  background: #304e63;
+  border-color: #304e63;
+  color: #fff7ec;
   transform: rotate(-1.5deg);
 }
 
 /* ===== Contact ===== */
 .contact-frame {
   position: relative;
-  padding: 24px 20px 28px 44px;
+  padding: 28px 34px 34px 22px;
   background: var(--paper);
   border: 1.5px solid var(--text);
   border-radius: 20px;
@@ -950,75 +1011,88 @@ body:has(.rules) .site-footer {
   margin-bottom: 14px;
 }
 
-.vine {
+/* Dây leo option 2 (trang Contact / Living Book) */
+.vine2 {
   position: absolute;
-  left: 4px;
-  top: 16px;
-  bottom: 16px;
-  width: 32px;
+  inset: -14px;
   pointer-events: none;
 }
 
-.vine-stem {
-  width: 100%;
-  height: 100%;
+.v2-line {
+  position: absolute;
   fill: none;
   stroke: #5b7b63;
   stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.v2-line path {
   vector-effect: non-scaling-stroke;
   stroke-dasharray: 2000;
   stroke-dashoffset: 2000;
-  animation: grow 2.4s ease-out 0.2s forwards;
+  animation: grow 2s ease-out forwards;
 }
+
+.v2-top {
+  top: 0;
+  right: 24px;
+  width: 48%;
+  height: 24px;
+}
+
+.v2-right {
+  top: 14px;
+  right: 0;
+  width: 28px;
+  height: calc(100% - 28px);
+}
+
+.v2-bottom {
+  bottom: 0;
+  right: 24px;
+  width: 62%;
+  height: 24px;
+}
+
+.v2-top path { animation-delay: 0.2s; }
+.v2-right path { animation-delay: 0.7s; animation-duration: 2.4s; }
+.v2-bottom path { animation-delay: 1.6s; }
 
 @keyframes grow {
   to { stroke-dashoffset: 0; }
 }
 
-.bloom,
-.sprout {
+.v2-curl,
+.v2-leaf,
+.v2-flower {
   position: absolute;
   opacity: 0;
-  animation: pop-in 0.4s ease-out forwards;
+  animation: pop-in 0.45s ease-out forwards;
+  animation-delay: var(--d, 1s);
 }
 
-.bloom {
-  left: 0;
-  width: 30px;
-  height: 30px;
+.v2-curl {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #5b7b63;
+  stroke-width: 1.6;
+  stroke-linecap: round;
 }
 
-.bloom.small {
+.v2-leaf {
   width: 22px;
-  height: 22px;
-  left: 4px;
+  height: 13px;
 }
 
-.sprout {
-  left: 14px;
-  width: 20px;
-  height: 12px;
+.v2-flower {
+  width: 28px;
+  height: 28px;
 }
 
-.sprout.flip {
-  left: -2px;
-  scale: -1 1;
-}
-
-.vine > :nth-child(2) { animation-delay: 0.6s; }
-.vine > :nth-child(3) { animation-delay: 0.9s; }
-.vine > :nth-child(4) { animation-delay: 1.2s; }
-.vine > :nth-child(5) { animation-delay: 1.5s; }
-.vine > :nth-child(6) { animation-delay: 1.8s; }
-.vine > :nth-child(7) { animation-delay: 2.1s; }
-
-.bloom.corner {
-  left: auto;
-  right: -12px;
-  top: -12px;
-  width: 36px;
-  height: 36px;
-  animation-delay: 1s;
+.v2-flower.big {
+  width: 40px;
+  height: 40px;
 }
 
 @keyframes pop-in {
@@ -1029,7 +1103,7 @@ body:has(.rules) .site-footer {
 .butterfly {
   position: absolute;
   top: -22px;
-  right: 30px;
+  left: 26px;
   width: 40px;
   z-index: 2;
   animation: fly-in 3s ease-in-out forwards;
@@ -1230,3 +1304,12 @@ body:has(.rules) .site-footer {
   color: inherit;
 }
 
+
+.form-error {
+  padding: 10px 14px;
+  border: 1.5px solid #f28b75;
+  border-radius: 10px;
+  background: rgba(242, 139, 117, 0.12);
+  font-size: 14px;
+  font-weight: 600;
+}
