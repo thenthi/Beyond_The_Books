@@ -9,8 +9,15 @@ const BOOKING_HEADERS = ['Created at', 'Person ID', 'Living Book', 'Topic', 'Dat
   'Name', 'Email', 'Phone', 'Gender', 'Message'];
 
 const LIVING_BOOKS = 'Living Book applications';
-const LIVING_HEADERS = ['Created at', 'Name', 'Email', 'Contact', 'Language',
-  'Topics they can talk about', 'Why be a Living Book', 'Experience with similar events', 'Qualities'];
+// Tiêu đề cột = nguyên văn câu hỏi trên trang Be a Living Book (living-book.html)
+const LIVING_HEADERS = ['Created at',
+  "Q1 What's your name?",
+  'Q2 Email address',
+  'Q3 What language are you comfortable having a conversation in?',
+  'Q4 Which topics would you feel comfortable/confident talking about as a Living Book?',
+  'Q5 Why would you like to be a Living Book? What interested you?',
+  'Q6 Do you have experience with similar events? Can you tell us more about it?',
+  'Q7 What qualities do you have that would make you a good Living Book?'];
 
 const FEEDBACK = 'Feedback';
 const FEEDBACK_HEADERS = ['Created at',
@@ -28,9 +35,10 @@ function getSheet_(name, headers) {
   let sheet = ss.getSheetByName(name);
   if (!sheet) {
     sheet = ss.insertSheet(name);
-    sheet.appendRow(headers);
     sheet.setFrozenRows(1);
   }
+  // Luôn ghi lại hàng tiêu đề cho khớp với câu hỏi hiện tại (kể cả khi tab đã có từ trước)
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight('bold');
   return sheet;
 }
 
@@ -59,12 +67,15 @@ function doPost(e) {
   lock.waitLock(10000); // tránh 2 người đặt cùng lúc
 
   try {
-    if (data.type === 'livingbook' || data.type === 'feedback') {
-      const sheet = data.type === 'livingbook'
-        ? getSheet_(LIVING_BOOKS, LIVING_HEADERS)
-        : getSheet_(FEEDBACK, FEEDBACK_HEADERS);
-      sheet.appendRow([new Date(), data.q1, data.q2, text_(data.q3), data.q4,
-        data.q5, data.q6, data.q7, data.q8]);
+    if (data.type === 'livingbook') {
+      getSheet_(LIVING_BOOKS, LIVING_HEADERS).appendRow([new Date(),
+        data.q1, data.q2, data.q3, data.q4, data.q5, data.q6, data.q7]);
+      return json_({ ok: true });
+    }
+
+    if (data.type === 'feedback') {
+      getSheet_(FEEDBACK, FEEDBACK_HEADERS).appendRow([new Date(),
+        data.q1, data.q2, data.q3, data.q4, data.q5, data.q6, data.q7, data.q8]);
       return json_({ ok: true });
     }
 
