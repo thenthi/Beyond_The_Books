@@ -1,7 +1,29 @@
 const list = document.querySelector('#topic-list');
 
+// Trang trí: mỗi bìa có một bó hoa lá (do nhóm thiết kế) ló ra từ sau góc dưới, xen kẽ trái/phải.
+// Bìa màu cam → hoa vàng, các bìa khác → hoa cam để nổi bật.
+const WARM = ['#f28b75'];
+function bouquet(topic, t) {
+  const side = t % 2 === 0 ? 'left' : 'right';
+  const [big, small] = WARM.includes(topic.color) ? [[1, 6], [3, 1]][t % 2] : [[5, 4], [2, 5]][t % 2];
+  return `
+    <div class="bouquet ${side}" aria-hidden="true">
+      <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
+      <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
+      <img class="bq-flower big" src="assets/flower-${big}.svg" alt="" />
+      <img class="bq-flower small" src="assets/flower-${small}.svg" alt="" />
+    </div>`;
+}
+
+// Ong, bướm bay ở khoảng trống giữa vài bìa (bên đối diện với bó hoa)
+const FLYERS = {
+  1: '<img class="flyer bee left" src="assets/bee.svg" alt="" aria-hidden="true" />',
+  3: '<svg class="flyer fly left" viewBox="0 0 40 32" aria-hidden="true"><use href="#butterfly" /></svg>',
+  4: '<img class="flyer bee right" src="assets/bee.svg" alt="" aria-hidden="true" />',
+};
+
 // Mỗi topic là một "bìa"; bấm vào thì các card Living Book trồi lên từ trong bìa
-list.innerHTML = TOPICS.map((topic) => `
+list.innerHTML = TOPICS.map((topic, t) => `
   <article class="topic" style="--topic-color: ${topic.color}; --topic-ink: ${topic.ink || '#1f2a27'}">
     <div class="deck-wrap" id="deck-${topic.id}">
       <div class="deck-inner">
@@ -25,6 +47,8 @@ list.innerHTML = TOPICS.map((topic) => `
       <span class="cover-count">${topic.people.length} Living Books</span>
       <span class="cover-hint">Tap a card to peek inside</span>
     </button>
+    ${bouquet(topic, t)}
+    ${FLYERS[t] || ''}
   </article>`).join('');
 
 // Mở bìa này thì bìa đang mở trước đó thu lại

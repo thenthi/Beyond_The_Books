@@ -8,9 +8,16 @@ const BOOKINGS = 'Bookings';
 const BOOKING_HEADERS = ['Created at', 'Person ID', 'Living Book', 'Topic', 'Date', 'Time',
   'Name', 'Email', 'Phone', 'Gender', 'Message'];
 
-const LIVING_BOOKS = 'Living Book applications';
-const LIVING_HEADERS = ['Created at', 'Name', 'Email', 'Phone', 'Topic', 'Book title',
-  'Story', 'Format', 'Availability'];
+const LIVING_BOOKS = 'Be a Living Book answers';
+const LIVING_HEADERS = ['Created at',
+  'Q1 What did you like most about Beyond the Book?',
+  'Q2 What did you like least about the experience?',
+  'Q3 Was the booking process easy to use?',
+  'Q4 Did Beyond the Book help you feel more connected to others?',
+  'Q5 What topic would you like to have in the future?',
+  'Q6 Would you join another session in the future? Why or why not?',
+  'Q7 What do you think could improve?',
+  'Q8 What do you think could be removed?'];
 
 function getSheet_(name, headers) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -49,8 +56,8 @@ function doPost(e) {
 
   try {
     if (data.type === 'livingbook') {
-      getSheet_(LIVING_BOOKS, LIVING_HEADERS).appendRow([new Date(), data.name, data.email,
-        text_(data.phone), data.topic, data.title, data.story, data.format, data.availability]);
+      getSheet_(LIVING_BOOKS, LIVING_HEADERS).appendRow([new Date(),
+        data.q1, data.q2, data.q3, data.q4, data.q5, data.q6, data.q7, data.q8]);
       return json_({ ok: true });
     }
 

@@ -417,7 +417,7 @@ h2 {
 
 /* Các bước xếp quanh vòng tròn — vị trí tính từ góc --a */
 .step-circle {
-  --r: 34%;
+  --r: 35%;
   position: relative;
   width: min(100%, 400px);
   aspect-ratio: 1;
@@ -429,9 +429,9 @@ h2 {
   inset: 0;
   fill: none;
   stroke: var(--text);
-  stroke-width: 0.6;
+  stroke-width: 0.7;
   stroke-dasharray: 2 2.5;
-  opacity: 0.45;
+  opacity: 0.6;
   animation: spin 60s linear infinite;
 }
 
@@ -450,7 +450,7 @@ h2 {
 }
 
 .step {
-  width: 40%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -475,8 +475,9 @@ h2 {
   animation: float 3.2s ease-in-out infinite;
 }
 
-.step:nth-child(2) img { animation-delay: -1.1s; }
-.step:nth-child(3) img { animation-delay: -2.2s; }
+.step:nth-child(2) img { animation-delay: -0.8s; }
+.step:nth-child(3) img { animation-delay: -1.6s; }
+.step:nth-child(4) img { animation-delay: -2.4s; }
 
 @keyframes float {
   0%, 100% { translate: 0 0; }
@@ -565,7 +566,8 @@ body:has(.rules) .site-footer {
 .topic-list {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 46px; /* chừa chỗ cho hoa, ong, bướm giữa các bìa */
+  padding-bottom: 40px;
 }
 
 .topic {
@@ -1081,8 +1083,8 @@ body:has(.rules) .site-footer {
 }
 
 .v2-leaf {
-  width: 22px;
-  height: 13px;
+  width: 14px;
+  height: auto;
 }
 
 .v2-flower {
@@ -1277,33 +1279,107 @@ body:has(.rules) .site-footer {
   }
 }
 
-/* ===== Be a Living Book ===== */
-.intro {
-  margin-bottom: 20px;
-  color: var(--muted);
-  text-align: center;
-}
-
-.intro strong {
-  color: var(--accent);
-}
-
-#living-form {
+/* ===== Be a Living Book: các khung câu hỏi xếp dọc ===== */
+.q-list {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 40px;
+  padding-bottom: 40px;
 }
 
-.field select {
+.q-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 18px 20px;
+  background: var(--paper);
+  border: 1.5px solid var(--text);
+  border-radius: 16px 8px 18px 10px; /* bo góc lệch cho giống vẽ tay */
+  box-shadow: var(--pop);
+  opacity: 0;
+  translate: 0 24px;
+  transition: opacity 0.5s ease, translate 0.5s ease;
+}
+
+.q-card:nth-child(odd) { rotate: -0.6deg; }
+.q-card:nth-child(even) { rotate: 0.5deg; }
+
+.q-card.shown {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.q-card label {
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.q-num {
+  display: block;
+  font-family: var(--hand);
+  font-size: 24px;
+  color: #f28b75;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.q-card textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1.5px solid var(--text);
   border-radius: 10px;
   background: #fff;
   font: inherit;
-  color: inherit;
+  resize: vertical;
 }
 
+.q-card textarea:focus {
+  outline: 3px solid #a8bfa3;
+  outline-offset: 1px;
+}
+
+.q-submit {
+  align-self: center;
+  min-width: 180px;
+  margin-top: 8px;
+}
+
+/* trang trí: hoa, ong, bướm */
+.q-deco {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  animation: bob 3.2s ease-in-out infinite;
+}
+
+/* bó hoa nằm sau khung câu hỏi, ló ra ở góc dưới */
+.q-card {
+  z-index: 1;
+}
+
+.q-anchor {
+  position: relative;
+  height: 0;
+  margin-top: -40px; /* bù lại khoảng gap của danh sách */
+  z-index: 0;
+  pointer-events: none;
+}
+
+.q-bee {
+  left: -22px;
+  bottom: -34px;
+  width: 64px;
+  animation-delay: -1s;
+}
+
+.q-butterfly {
+  right: -12px;
+  top: -28px;
+  width: 54px;
+  animation-delay: -2s;
+}
 
 .form-error {
   padding: 10px 14px;
@@ -1313,3 +1389,86 @@ body:has(.rules) .site-footer {
   font-size: 14px;
   font-weight: 600;
 }
+
+/* ===== Booking: trang trí hoa lá (của nhóm), ong, bướm ===== */
+.booking-title {
+  position: relative;
+}
+
+.b-deco {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.b-title-fly {
+  top: -6px;
+  right: 18%;
+  width: 40px;
+  rotate: 16deg;
+  animation: bob 3.2s ease-in-out infinite;
+}
+
+/* bó hoa nằm sau bìa (z-index thấp hơn bìa), chỉ ló ra ở góc dưới */
+.bouquet {
+  position: absolute;
+  bottom: -26px;
+  width: 110px;
+  height: 100px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bouquet.left { left: -10px; }
+.bouquet.right { right: -10px; scale: -1 1; }
+
+.bouquet img {
+  position: absolute;
+}
+
+.bq-leaf.l1 {
+  width: 30px;
+  left: 2px;
+  bottom: 30px;
+  rotate: -28deg;
+}
+
+.bq-leaf.l2 {
+  width: 28px;
+  left: 66px;
+  bottom: -22px;
+  rotate: 62deg;
+}
+
+.bq-flower.big {
+  width: 58px;
+  left: -2px;
+  bottom: -6px;
+  animation: sway 5s ease-in-out infinite;
+}
+
+.bq-flower.small {
+  width: 34px;
+  left: 44px;
+  bottom: -10px;
+  animation: sway 5s ease-in-out infinite reverse;
+}
+
+@keyframes sway {
+  50% { rotate: 8deg; }
+}
+
+/* ong, bướm bay ở khoảng trống giữa các bìa */
+.flyer {
+  position: absolute;
+  top: calc(100% + 2px);
+  z-index: 6;
+  pointer-events: none;
+  animation: bob 3s ease-in-out infinite;
+}
+
+.flyer.bee { width: 40px; }
+.flyer.fly { width: 34px; animation-delay: -1.2s; }
+.flyer.left { left: 26%; }
+.flyer.right { right: 26%; }
+.flyer.bee.left { scale: -1 1; }

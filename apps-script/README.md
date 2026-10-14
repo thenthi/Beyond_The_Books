@@ -3,7 +3,7 @@
 Sau khi làm xong các bước dưới đây:
 
 - Mỗi lượt book được lưu thành một dòng trong tab **Bookings** của Sheet.
-- Mỗi đơn "Be a Living Book" được lưu vào tab **Living Book applications**.
+- Mỗi đơn "Be a Living Book" được lưu vào tab **Be a Living Book answers**.
 - Khung giờ đã có người đặt sẽ hiện **Booked** và không bấm được nữa.
 
 ## Các bước (khoảng 5 phút)
