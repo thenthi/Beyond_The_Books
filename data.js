@@ -1,14 +1,14 @@
 // Dữ liệu topic + người chia sẻ. Sửa / thêm ở đây, các trang tự cập nhật.
 // color: màu bìa (theo palette) · ink: màu chữ trên bìa nếu bìa tối
+// card: ảnh profile card do nhóm thiết kế (assets/profiles/), dùng ở trang Booking và trang chọn giờ
 const TOPICS = [
   {
     id: 'art',
     title: 'Art',
     color: '#f28b75',
     people: [
-      { name: 'Linh Nguyen', role: 'Illustrator', bio: 'Illustrates children\'s books and loves telling stories in watercolour.' },
-      { name: 'Minh Tran', role: 'Ceramic artist', bio: 'Six years of handmade ceramics from a tiny studio in Da Lat.' },
-      { name: 'An Le', role: 'Art director', bio: 'Left advertising to chase oil painting full time.' },
+      { name: 'Amelia Roberts', role: 'Creative Hobbies', language: 'English', card: 'assets/profiles/amelia-roberts.png',
+        bio: 'I enjoy illustration, photography, journalling, and trying new creative hobbies even when I\'m not very good at them. I\'d love to chat about what inspires you and what you like to create.' },
     ],
   },
   {
@@ -16,17 +16,21 @@ const TOPICS = [
     title: 'Cooking',
     color: '#f3c969',
     people: [
-      { name: 'Hoa Pham', role: 'Home cook', bio: 'Cooks her grandmother\'s recipes and the stories behind them.' },
-      { name: 'Tuan Vo', role: 'Pastry chef', bio: 'Trained in Paris, now runs a small bakery in Saigon.' },
+      { name: 'Ethan Lee', role: 'Food & Cooking', language: 'English, Korean', card: 'assets/profiles/ethan-lee.png',
+        bio: 'Cooking is one of my favourite ways to relax and connect with people. I enjoy talking about Korean food, easy student meals, and the dishes that remind us of home.' },
+      { id: 'cooking-thi', name: 'Thi (Tea)', role: 'Cooking', language: 'Vietnamese, English', card: 'assets/profiles/thi.png',
+        bio: 'As an open-minded person who enjoys cooking, I look forward to sharing my experiences and connecting with others through an activity that I love.' },
     ],
   },
   {
-    id: 'celebrity',
-    title: 'Celebrity',
+    id: 'travel',
+    title: 'Travel',
     color: '#a8bfa3',
     people: [
-      { name: 'Quynh Do', role: 'Talk show host', bio: 'Ten years on TV — what fame looks like behind the camera.' },
-      { name: 'Bao Ly', role: 'Influencer', bio: 'Grew a following of 1M and learned to log off.' },
+      { name: 'Kai Pham', role: 'Travelling', language: 'English, Vietnamese', card: 'assets/profiles/kai-pham.png',
+        bio: 'I enjoy exploring new places and learning about different cultures through food, language, and everyday life. I\'d love to exchange travel stories, dream destinations, or funny experiences.' },
+      { name: 'Olivia Bennett', role: 'Travel', language: 'English', card: 'assets/profiles/olivia-bennett.png',
+        bio: 'I love travel and exploring Melbourne\'s cafes, markets, live music, and hidden local spots. I\'m always happy to share recommendations or hear about your favourite places too.' },
     ],
   },
   {
@@ -35,18 +39,17 @@ const TOPICS = [
     color: '#304e63',
     ink: '#fff7ec',
     people: [
-      { name: 'Khoa Dang', role: 'Marathon runner', bio: 'Ran his first marathon at 40 and never stopped.' },
-      { name: 'Lan Bui', role: 'Volleyball player', bio: 'Former national team player, now coaching kids.' },
-      { name: 'Nam Ho', role: 'Climber', bio: 'Climbs limestone cliffs and talks about fear.' },
+      { name: 'Jack Wilson', role: 'Sport & outdoor activities', language: 'English', card: 'assets/profiles/jack-wilson.png',
+        bio: 'I enjoy footy, basketball, hiking, and spending time outdoors. I\'d love to chat about sport, weekend activities, or places to explore Melbourne.' },
     ],
   },
   {
-    id: 'fashion',
-    title: 'Fashion',
+    id: 'music',
+    title: 'Music',
     color: '#f28b75',
     people: [
-      { name: 'Vy Ngo', role: 'Stylist', bio: 'Styles shoots for magazines and loves thrifted finds.' },
-      { name: 'Thao Le', role: 'Fashion designer', bio: 'Built a slow-fashion label from her bedroom.' },
+      { name: 'Sophia', role: 'Music', language: 'English', card: 'assets/profiles/sophia.png',
+        bio: 'I like Kpop and US-UK music. If you also like, come and have a conversation about the group we like and have fun!!!' },
     ],
   },
   {
@@ -54,8 +57,8 @@ const TOPICS = [
     title: 'Film',
     color: '#f3c969',
     people: [
-      { name: 'Duc Lam', role: 'Director', bio: 'Makes short films on a tiny budget and big dreams.' },
-      { name: 'Mai Tran', role: 'Film critic', bio: 'Watches 300 films a year and writes about the best ones.' },
+      { name: 'Noah Chen', role: 'Film & TV', language: 'English, Mandarin', card: 'assets/profiles/noah-chen.png',
+        bio: 'I can talk for hours about films, series, and the little details that make a story memorable. Whether you like thrillers, animation, dramas, or just want a recommendation, come have a chat.' },
     ],
   },
 ];

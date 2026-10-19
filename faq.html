@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Feedback · Beyond The Books</title>
+    <title>FAQ · Beyond The Books</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="image.jpg" type="image/jpeg">
     <link rel="stylesheet" href="style.css" />
@@ -26,7 +26,37 @@
     </header>
 
     <main class="page">
-      <h1 class="page-title">Feedback for us</h1>
+      <h1 class="page-title">FAQ</h1>
+
+      <section class="faq-intro">
+        <img class="faq-mascot" src="assets/mascot.png" width="177" height="179" alt="A smiling book character" />
+        <p class="faq-bubble">Got questions? I've got answers!</p>
+      </section>
+
+      <section class="faq-list" aria-label="Frequently asked questions">
+          <details class="faq-item">
+            <summary>What is a Living Book?</summary>
+            <p>A Living Book is a real person who shares their story, experiences or passion with you. Instead of reading a book, you sit down and have a conversation.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do I book a session?</summary>
+            <p>Go to <a href="booking.html">Booking</a>, pick a topic and a Living Book, choose a date and time, then leave your name and email. We'll send you a confirmation email.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What can I ask?</summary>
+            <p>Anything about the Living Book's story, work or interests. Please be respectful and avoid overly personal questions. See the rules on the <a href="index.html#rules">home page</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can I cancel or change my booking?</summary>
+            <p>Yes. Just reply to your confirmation email and let us know, so the time slot can be opened for someone else.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How can I become a Living Book?</summary>
+            <p>We'd love to hear your story! Fill in the <a href="living-book.html">Be a Living Book</a> form and we'll get in touch.</p>
+          </details>
+      </section>
+
+      <h2 class="page-title faq-feedback-title" id="feedback">Feedback for us</h2>
 
       <form id="q-form" class="q-list" data-type="feedback" data-need-one data-no-save>
         <p class="q-note">Tap to choose. Answer as many as you like.</p>
@@ -107,7 +137,7 @@
             <div class="choices">
               <label class="choice"><input type="checkbox" name="q7" value="Art" /><span>Art</span></label>
               <label class="choice"><input type="checkbox" name="q7" value="Cooking" /><span>Cooking</span></label>
-              <label class="choice"><input type="checkbox" name="q7" value="Celebrity" /><span>Celebrity</span></label>
+              <label class="choice"><input type="checkbox" name="q7" value="Travel" /><span>Travel</span></label>
               <label class="choice"><input type="checkbox" name="q7" value="Sport" /><span>Sport</span></label>
               <label class="choice"><input type="checkbox" name="q7" value="Fashion" /><span>Fashion</span></label>
               <label class="choice"><input type="checkbox" name="q7" value="Film" /><span>Film</span></label>

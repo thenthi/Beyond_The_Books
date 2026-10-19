@@ -65,3 +65,11 @@ form.addEventListener('submit', async (e) => {
     showError('Something went wrong. Please try again.');
   }
 });
+
+// Bấm chữ "Terms & Conditions" ở ô I agree thì mở phần điều khoản ra
+document.querySelector('.terms-link').addEventListener('click', (e) => {
+  e.preventDefault();
+  const terms = document.querySelector('#terms');
+  terms.open = true;
+  terms.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});

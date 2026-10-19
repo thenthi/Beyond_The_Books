@@ -29,7 +29,10 @@ list.innerHTML = TOPICS.map((topic, t) => `
       <div class="deck-inner">
         <div class="deck">
           ${topic.people.map((p, i) => `
-            <a class="book-card" href="detail.html?topic=${topic.id}&person=${i}" style="--i: ${i}">
+            <a class="book-card${p.card ? ' has-image' : ''}" href="detail.html?topic=${topic.id}&person=${i}" style="--i: ${i}">
+              ${p.card ? `
+              <img class="card-img" src="${p.card}" alt="${p.name}. ${p.role}. ${p.bio}" />
+              <span class="card-book">Book →</span>` : `
               <span class="avatar">${AVATAR_SVG}</span>
               <span class="card-text">
                 <span class="card-label">Info</span>
@@ -37,14 +40,14 @@ list.innerHTML = TOPICS.map((topic, t) => `
                 <span class="person-role">${p.role}</span>
                 <span class="person-bio">${p.bio}</span>
                 <span class="person-go">Book →</span>
-              </span>
+              </span>`}
             </a>`).join('')}
         </div>
       </div>
     </div>
     <button class="cover" aria-expanded="false" aria-controls="deck-${topic.id}">
       <span class="cover-title">${topic.title}</span>
-      <span class="cover-count">${topic.people.length} Living Books</span>
+      <span class="cover-count">${topic.people.length} Living Book${topic.people.length === 1 ? '' : 's'}</span>
       <span class="cover-hint">Tap a card to peek inside</span>
     </button>
     ${bouquet(topic, t)}
@@ -94,4 +97,33 @@ list.addEventListener('click', (e) => {
 // chạm ra ngoài thì card hạ xuống lại
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.book-card')) dropCards();
+});
+
+// Tìm Living Book theo tên, topic, nghề hoặc giới thiệu. Đang tìm thì ẩn các bìa topic.
+const searchInput = document.querySelector('#search');
+const results = document.querySelector('#search-results');
+const ALL_PEOPLE = TOPICS.flatMap((topic) => topic.people.map((p, i) => ({ topic, p, i })));
+const norm = (v) => v.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+searchInput.addEventListener('input', () => {
+  const q = norm(searchInput.value.trim());
+  list.hidden = Boolean(q);
+  results.hidden = !q;
+  if (!q) return;
+
+  const found = ALL_PEOPLE.filter(({ topic, p }) =>
+    norm(`${p.name} ${p.role} ${p.bio} ${topic.title}`).includes(q));
+
+  results.innerHTML = found.length
+    ? found.map(({ topic, p, i }) => `
+      <a class="result-card" href="detail.html?topic=${topic.id}&person=${i}" style="--topic-color: ${topic.color}; --topic-ink: ${topic.ink || '#1f2a27'}">
+        <span class="avatar">${AVATAR_SVG}</span>
+        <span class="result-text">
+          <span class="result-topic">${topic.title}</span>
+          <span class="person-name">${p.name}</span>
+          <span class="person-role">${p.role}</span>
+        </span>
+        <span class="result-go" aria-hidden="true">→</span>
+      </a>`).join('')
+    : '<p class="search-empty">No Living Books found. Try another name or topic.</p>';
 });

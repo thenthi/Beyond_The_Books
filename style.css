@@ -163,7 +163,7 @@ a {
   background-position: center, center;
 }
 
-/* ===== Menu xổ xuống (hàng dọc) ===== */
+/* ===== Menu xổ xuống (đơn giản) ===== */
 .navbar {
   display: none;
   position: absolute;
@@ -173,9 +173,10 @@ a {
   flex-direction: column;
   gap: 2px;
   padding: 6px;
-  border: 1px solid rgba(31, 42, 39, 0.1);
-  border-radius: 20px;
-  background: #f6f8f6;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(31, 42, 39, 0.12);
 }
 
 .navbar.open {
@@ -183,19 +184,22 @@ a {
 }
 
 .navbar a {
+  padding: 11px 14px;
+  border-radius: 10px;
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--muted);
-  padding: 10px 14px;
-  border-radius: 14px;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  transition: background-color 0.2s ease;
 }
 
-.navbar a:hover,
+.navbar a:hover {
+  background: var(--bg);
+}
+
 .navbar a.active {
-  color: var(--text);
-  background: #ffffff;
+  background: var(--bg);
+  color: var(--accent);
 }
 
 /* ===== Điện thoại ===== */
@@ -634,16 +638,87 @@ body:has(.rules) .site-footer {
   scale: 1.02;
 }
 
+/* nút sang trang Booking sau khi đọc xong Rules */
+.rules-cta {
+  margin-top: 44px;
+  opacity: 0;
+  translate: 0 20px;
+  transition: opacity 0.5s ease 0.6s, translate 0.5s ease 0.6s;
+}
+
+.rules-cta.shown {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.rules-cta p {
+  margin-bottom: 14px;
+  font-family: var(--hand);
+  font-size: 26px;
+}
+
+.btn-go {
+  padding: 14px 32px;
+  font-size: 18px;
+  background: #f3c969;
+  color: #304e63;
+  border-color: #fff7ec;
+  box-shadow: 4px 4px 0 #fff7ec;
+}
+
+.btn-go:hover {
+  box-shadow: 5px 5px 0 #fff7ec;
+}
+
+.btn-go:active {
+  box-shadow: 1px 1px 0 #fff7ec;
+}
+
 /* ===== Booking: bìa topic + chồng card ===== */
 .topic-list {
   display: flex;
   flex-direction: column;
-  gap: 46px; /* chừa chỗ cho hoa, ong, bướm giữa các bìa */
+  gap: 58px; /* chừa chỗ cho hoa, ong, bướm giữa các bìa */
   padding-bottom: 40px;
 }
 
 .topic {
+  --cover-h: 140px;
+  --back-gap: 14px; /* phần bìa sau lộ ra phía trên bìa trước */
   scroll-margin-top: 80px;
+  isolation: isolate;
+}
+
+/* Hình folder: bìa sau (màu đậm hơn một chút, không viền cho mềm) + tab bo cong ở góc trái */
+.topic::before,
+.topic::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: color-mix(in srgb, var(--topic-color) 86%, #1f2a27);
+  transition: height 0.4s ease, bottom 0.4s ease;
+}
+
+.topic::before {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--cover-h) + var(--back-gap));
+  border-radius: 0 18px 20px 20px;
+}
+
+/* tab: cạnh phải thoải dần xuống thân folder */
+.topic::after {
+  left: 0;
+  bottom: calc(var(--cover-h) + var(--back-gap) - 1px);
+  width: 160px;
+  height: 16px;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 16'%3E%3Cpath d='M0 16V12Q0 0 12 0H112Q122 0 128 6Q134 12 144 14Q150 16 160 16Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 16'%3E%3Cpath d='M0 16V12Q0 0 12 0H112Q122 0 128 6Q134 12 144 14Q150 16 160 16Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+}
+
+.topic.open {
+  --cover-h: calc(var(--card-h) - var(--edge));
 }
 
 /* bìa (túi đựng card) */
@@ -651,39 +726,19 @@ body:has(.rules) .site-footer {
   position: relative;
   z-index: 5;
   width: 100%;
-  min-height: 140px;
+  min-height: var(--cover-h);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2px;
   border: 1.5px solid var(--text);
-  border-radius: 6px 6px 20px 20px;
+  border-radius: 18px;
   background: var(--topic-color);
   color: var(--topic-ink);
   box-shadow: var(--pop);
   cursor: pointer;
   transition: margin-top 0.4s ease, min-height 0.4s ease, transform 0.2s ease;
-}
-
-/* vết khuyết ở mép trên bìa cho giống túi hồ sơ */
-.cover::before {
-  content: "";
-  position: absolute;
-  top: -1.5px;
-  left: 50%;
-  width: 56px;
-  height: 18px;
-  translate: -50% 0;
-  border: 1.5px solid var(--text);
-  border-top: 0;
-  border-radius: 0 0 28px 28px;
-  background: var(--bg);
-}
-
-/* khi mở, vết khuyết lộ ra card trắng bên trong */
-.topic.open .cover::before {
-  background: #fff;
 }
 
 .cover:hover {
@@ -714,7 +769,8 @@ body:has(.rules) .site-footer {
 
 /* các ngăn card bên trong bìa: đóng/mở bằng grid rows */
 .topic {
-  --card-h: 200px;
+  /* card cao theo đúng tỉ lệ ảnh profile card (1064 × 650): rộng = khung trang − lề */
+  --card-h: calc((min(100vw, 560px) - 60px) / 1.637);
   --edge: 30px; /* phần mép card lộ ra trên miệng bìa — đủ dày để chạm trên điện thoại */
   --lift: calc(var(--card-h) - var(--edge) - 16px); /* card trồi lên bao nhiêu */
   position: relative;
@@ -740,6 +796,9 @@ body:has(.rules) .site-footer {
 
 .topic.open .deck-inner {
   overflow: visible;
+  /* lúc card đang trượt lên, phần nằm dưới đáy folder bị cắt đi (không lòi chữ Book ra dưới bìa);
+     phía trên để thoải mái cho card trồi lên */
+  clip-path: inset(-100vh -40px 0 -40px);
 }
 
 .deck {
@@ -750,8 +809,7 @@ body:has(.rules) .site-footer {
 
 /* bìa che gần hết card, chỉ chừa mép trên của từng ngăn */
 .topic.open .cover {
-  margin-top: calc(var(--edge) - var(--card-h));
-  min-height: calc(var(--card-h) - var(--edge)); /* bìa đủ cao để đựng trọn card */
+  margin-top: calc(var(--edge) - var(--card-h)); /* bìa đủ cao (--cover-h) để đựng trọn card */
 }
 
 .book-card {
@@ -846,6 +904,42 @@ body:has(.rules) .site-footer {
   font-size: 13px;
 }
 
+/* card dùng ảnh profile do nhóm thiết kế */
+.book-card.has-image {
+  padding: 0;
+  overflow: hidden;
+  background: #fff7ec;
+  border-radius: 12px 12px 0 0;
+}
+
+.card-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* nút nhỏ hiện ra khi card trồi lên: chạm lần nữa để đặt lịch */
+.card-book {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 5px 12px;
+  border: 1.5px solid var(--text);
+  border-radius: 999px;
+  background: #f3c969;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.book-card.lifted .card-book {
+  opacity: 1;
+}
+
 /* ===== Booking chi tiết ===== */
 .info-card {
   position: relative;
@@ -858,6 +952,19 @@ body:has(.rules) .site-footer {
   border: 1.5px solid var(--text);
   border-radius: 18px;
   box-shadow: var(--pop);
+}
+
+.info-card.has-image {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  background: #fff7ec;
+}
+
+.info-card.has-image img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .info-card h2 {
@@ -1299,6 +1406,44 @@ body:has(.rules) .site-footer {
   cursor: pointer;
 }
 
+/* Terms & Conditions: bấm mũi tên V để mở ra đọc */
+.terms summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.terms summary::-webkit-details-marker {
+  display: none;
+}
+
+.terms summary::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%231f2a27' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: rotate 0.25s ease;
+}
+
+.terms[open] summary::after {
+  rotate: 180deg;
+}
+
+.terms ol {
+  margin-top: 6px;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.agree a {
+  color: #e07a5f;
+}
+
 .agree input {
   position: absolute;
   opacity: 0;
@@ -1645,4 +1790,221 @@ body:has(.rules) .site-footer {
   line-height: 1.45;
   color: var(--muted);
   text-align: center;
+}
+
+/* ===== FAQ: linh vật + câu hỏi thường gặp (bấm để mở) ===== */
+.faq-intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: -8px 0 20px;
+}
+
+.faq-mascot {
+  width: 130px;
+  height: auto;
+  transform-origin: 50% 100%; /* lắc từ chân */
+  animation: mascot-hi 4s ease-in-out 0.6s infinite;
+}
+
+/* đứng yên, thỉnh thoảng lắc lư "chào" một cái */
+@keyframes mascot-hi {
+  0%, 70%, 100% { rotate: 0deg; }
+  76% { rotate: -7deg; }
+  82% { rotate: 6deg; }
+  88% { rotate: -4deg; }
+  94% { rotate: 2deg; }
+}
+
+.faq-bubble {
+  position: relative;
+  max-width: 150px;
+  padding: 10px 14px;
+  background: var(--paper);
+  border: 1.5px solid var(--text);
+  border-radius: 16px 16px 16px 4px;
+  box-shadow: var(--pop);
+  font-family: var(--hand);
+  font-size: 22px;
+  line-height: 1.1;
+  transform-origin: 0 100%;
+  animation: bubble-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+/* bong bóng thoại bật ra một lần khi mở trang */
+@keyframes bubble-pop {
+  from { scale: 0; opacity: 0; }
+  to { scale: 1; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-mascot,
+  .faq-bubble {
+    animation: none;
+  }
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.faq-item {
+  background: var(--paper);
+  border: 1.5px solid var(--text);
+  border-radius: 14px 8px 14px 10px;
+  box-shadow: var(--pop);
+}
+
+.faq-item summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "";
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--text);
+  border-radius: 50%;
+  /* mũi tên chữ V hướng xuống */
+  background: #f3c969 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%231f2a27' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 13px no-repeat;
+  transition: rotate 0.25s ease, background-color 0.25s ease;
+}
+
+.faq-item[open] summary::after {
+  rotate: 180deg;
+  background-color: #f28b75;
+}
+
+.faq-item p {
+  padding: 0 16px 16px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.faq-item a {
+  color: #f28b75;
+  font-weight: 600;
+}
+
+.faq-feedback-title {
+  margin-bottom: 8px;
+}
+
+/* ===== Booking: ô tìm kiếm Living Book ===== */
+.search {
+  position: relative;
+  margin: 8px 0 28px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  width: 20px;
+  translate: 0 -50%;
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.search input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1.5px solid var(--text);
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: var(--pop);
+  font: inherit;
+}
+
+.search input:focus {
+  outline: 3px solid #a8bfa3;
+  outline-offset: 2px;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.result-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px 12px 12px;
+  background: var(--paper);
+  border: 1.5px solid var(--text);
+  border-radius: 16px 8px 16px 10px;
+  box-shadow: var(--pop);
+  color: inherit;
+  text-decoration: none;
+}
+
+.result-card:active {
+  translate: 2px 2px;
+  box-shadow: 2px 2px 0 var(--text);
+}
+
+.result-card .avatar {
+  flex: none;
+  width: 58px;
+}
+
+.result-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.result-topic {
+  align-self: flex-start;
+  margin-bottom: 4px;
+  padding: 1px 10px;
+  border: 1.5px solid var(--text);
+  border-radius: 999px;
+  background: var(--topic-color);
+  color: var(--topic-ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.result-card .person-name {
+  font-weight: 700;
+}
+
+.result-card .person-role {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.result-go {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.search-empty {
+  padding: 24px 0;
+  text-align: center;
+  color: var(--muted);
 }
