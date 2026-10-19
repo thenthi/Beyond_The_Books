@@ -29,18 +29,14 @@ list.innerHTML = TOPICS.map((topic, t) => `
       <div class="deck-inner">
         <div class="deck">
           ${topic.people.map((p, i) => `
-            <a class="book-card${p.card ? ' has-image' : ''}" href="detail.html?topic=${topic.id}&person=${i}" style="--i: ${i}">
-              ${p.card ? `
-              <img class="card-img" src="${p.card}" alt="${p.name}. ${p.role}. ${p.bio}" />
-              <span class="card-book">Book →</span>` : `
+            <a class="book-card" href="detail.html?topic=${topic.id}&person=${i}" style="--i: ${i}">
               <span class="avatar">${AVATAR_SVG}</span>
               <span class="card-text">
-                <span class="card-label">Info</span>
                 <span class="person-name">${p.name}</span>
                 <span class="person-role">${p.role}</span>
                 <span class="person-bio">${p.bio}</span>
                 <span class="person-go">Book →</span>
-              </span>`}
+              </span>
             </a>`).join('')}
         </div>
       </div>

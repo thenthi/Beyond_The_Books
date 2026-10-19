@@ -49,11 +49,7 @@ const els = {
 
 document.title = `${person.name} · Beyond The Books`;
 document.querySelector('#info-card').style.setProperty('--topic-color', topic.color);
-const infoCard = document.querySelector('#info-card');
-if (person.card) {
-  infoCard.classList.add('has-image');
-  infoCard.innerHTML = `<img src="${person.card}" alt="${person.name}. Language: ${person.language}. ${person.bio}" />`;
-} else infoCard.innerHTML = `
+document.querySelector('#info-card').innerHTML = `
   <span class="avatar">${AVATAR_SVG}</span>
   <div>
     <span class="tag">${topic.title}</span>

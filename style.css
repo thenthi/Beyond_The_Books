@@ -769,8 +769,7 @@ body:has(.rules) .site-footer {
 
 /* các ngăn card bên trong bìa: đóng/mở bằng grid rows */
 .topic {
-  /* card cao theo đúng tỉ lệ ảnh profile card (1064 × 650): rộng = khung trang − lề */
-  --card-h: calc((min(100vw, 560px) - 60px) / 1.637);
+  --card-h: 160px;
   --edge: 30px; /* phần mép card lộ ra trên miệng bìa — đủ dày để chạm trên điện thoại */
   --lift: calc(var(--card-h) - var(--edge) - 16px); /* card trồi lên bao nhiêu */
   position: relative;
@@ -817,7 +816,7 @@ body:has(.rules) .site-footer {
   height: var(--card-h);
   display: flex;
   gap: 14px;
-  padding: 40px 16px 16px;
+  padding: 18px 16px 16px;
   text-decoration: none;
   background: #fff;
   border: 1.5px solid var(--text);
@@ -863,9 +862,8 @@ body:has(.rules) .site-footer {
 }
 
 .book-card .avatar {
-  width: 80px;
-  height: 96px;
-  aspect-ratio: auto;
+  width: 72px;
+  height: 72px;
   flex-shrink: 0;
 }
 
@@ -898,46 +896,18 @@ body:has(.rules) .site-footer {
   color: var(--muted);
 }
 
+/* giới thiệu dài: card chỉ hiện 2 dòng, đọc đầy đủ ở trang chọn giờ */
+.book-card .person-bio {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .person-go {
   margin-top: 4px;
   font-weight: 700;
   font-size: 13px;
-}
-
-/* card dùng ảnh profile do nhóm thiết kế */
-.book-card.has-image {
-  padding: 0;
-  overflow: hidden;
-  background: #fff7ec;
-  border-radius: 12px 12px 0 0;
-}
-
-.card-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-}
-
-/* nút nhỏ hiện ra khi card trồi lên: chạm lần nữa để đặt lịch */
-.card-book {
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-  padding: 5px 12px;
-  border: 1.5px solid var(--text);
-  border-radius: 999px;
-  background: #f3c969;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.book-card.lifted .card-book {
-  opacity: 1;
 }
 
 /* ===== Booking chi tiết ===== */
@@ -952,19 +922,6 @@ body:has(.rules) .site-footer {
   border: 1.5px solid var(--text);
   border-radius: 18px;
   box-shadow: var(--pop);
-}
-
-.info-card.has-image {
-  display: block;
-  padding: 0;
-  overflow: hidden;
-  background: #fff7ec;
-}
-
-.info-card.has-image img {
-  display: block;
-  width: 100%;
-  height: auto;
 }
 
 .info-card h2 {
