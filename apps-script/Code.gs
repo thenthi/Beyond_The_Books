@@ -5,7 +5,7 @@
  */
 
 // Mã phiên bản: mở <URL Web app>?ping=1 để xem Google đang chạy bản nào
-const VERSION = 'btb-2026-10-20-feedback';
+const VERSION = 'btb-2026-10-20-map';
 
 // 1) Trang Contact (đặt lịch) → tab "Bookings"
 const BOOKINGS = 'Bookings';
@@ -70,9 +70,14 @@ function setup() {
 const PRIVACY_NOTE = 'Your personal information is kept private and secure. It is only used by the ' +
   'Beyond The Books team to organise your session and will never be shared with anyone else.';
 
+// Chỗ gặp Living Book: gửi kèm trong mail xác nhận đặt lịch. Ảnh bản đồ lấy từ web (GitHub Pages).
+const MEET_PLACE = 'Swanston Library, Level 5: the Balcony next to PCs 5C 1-20 (circled in red on the map). ' +
+  'From the library entrance, follow the red line past the Holds desk.';
+const MAP_URL = 'https://thenthi.github.io/Beyond_The_Books/assets/library-map.jpg';
+
 const esc_ = (v) => String(v || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-function sendMail_(to, subject, intro, rows) {
+function sendMail_(to, subject, intro, rows, withMap) {
   if (!to) return;
   const table = rows.map(([k, v]) =>
     `<tr><td style="padding:4px 12px 4px 0;color:#6b6b6b">${esc_(k)}</td><td style="padding:4px 0"><b>${esc_(v)}</b></td></tr>`).join('');
@@ -80,10 +85,15 @@ function sendMail_(to, subject, intro, rows) {
     <h2 style="color:#304e63;margin:0 0 12px">Beyond The Books</h2>
     <p>${esc_(intro)}</p>
     ${table ? `<table style="border-collapse:collapse;margin:12px 0">${table}</table>` : ''}
+    ${withMap ? `<h3 style="color:#304e63;margin:20px 0 6px">📍 Where to meet</h3>
+    <p style="margin:0 0 10px">${esc_(MEET_PLACE)}</p>
+    <a href="${MAP_URL}"><img src="${MAP_URL}" alt="Map of Swanston Library Level 5" width="520"
+      style="display:block;width:100%;max-width:520px;height:auto;border:1px solid #e4ddd2;border-radius:8px" /></a>` : ''}
     <p style="padding:12px 14px;background:#fff7ec;border-left:4px solid #a8bfa3;border-radius:6px">🔒 ${PRIVACY_NOTE}</p>
     <p>See you soon,<br>The Beyond The Books team</p>
   </div>`;
   const text = intro + '\n\n' + rows.map(([k, v]) => `${k}: ${v}`).join('\n') +
+    (withMap ? `\n\nWhere to meet: ${MEET_PLACE}\nMap: ${MAP_URL}` : '') +
     '\n\n' + PRIVACY_NOTE + '\n\nThe Beyond The Books team';
   // Lỗi gửi mail (sai địa chỉ, hết hạn mức) không được làm hỏng việc lưu dữ liệu
   try {
@@ -137,7 +147,7 @@ function doPost(e) {
       text_(data.time), data.name, data.email, data.gender || '', data.message || '']);
     sendMail_(data.email, 'Your Beyond The Books booking is confirmed',
       `Hi ${data.name}, your session is booked! Here are the details:`,
-      [['Living Book', data.personName], ['Topic', data.topic], ['Date', data.date], ['Time', data.time]]);
+      [['Living Book', data.personName], ['Topic', data.topic], ['Date', data.date], ['Time', data.time]], true);
     return json_({ ok: true });
   } finally {
     lock.releaseLock();

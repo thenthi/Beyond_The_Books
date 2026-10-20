@@ -78,7 +78,7 @@ a {
   position: sticky;
   top: 8px;
   margin-top: 8px;
-  z-index: 20;
+  z-index: 50; /* menu xổ xuống luôn nằm trên mọi thứ (ô tìm kiếm, card trồi lên…) */
   width: 92%;
   max-width: 1000px;
   display: flex;

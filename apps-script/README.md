@@ -46,7 +46,7 @@ Dán URL vào trình duyệt và thêm `?ping=1` vào cuối, ví dụ:
 https://script.google.com/macros/s/…/exec?ping=1
 ```
 
-Trang phải hiện: `{"ok":true,"version":"btb-2026-10-20-feedback"}`. Nếu đúng như vậy, gửi URL này cho người phụ trách web để dán vào dòng `BOOKING_API_URL` trong [`../api.js`](../api.js).
+Trang phải hiện: `{"ok":true,"version":"btb-2026-10-20-map"}`. Nếu đúng như vậy, gửi URL này cho người phụ trách web để dán vào dòng `BOOKING_API_URL` trong [`../api.js`](../api.js).
 
 ## Khi cần sửa code sau này
 
@@ -64,3 +64,4 @@ Sau khi đặt lịch hoặc gửi đơn Be a Living Book, người dùng sẽ n
 
 - Tài khoản Gmail thường gửi được khoảng **100 email mỗi ngày**.
 - Nếu gửi email bị lỗi, dữ liệu vẫn được lưu vào Sheet như bình thường.
+- Mail xác nhận đặt lịch có mục **Where to meet** kèm bản đồ thư viện. Ảnh bản đồ lấy từ web (`assets/library-map.jpg` trên GitHub Pages), nên muốn đổi bản đồ thì thay file đó rồi push. Muốn đổi câu chỉ đường thì sửa `MEET_PLACE` trong `Code.gs`.
