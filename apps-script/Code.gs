@@ -5,7 +5,7 @@
  */
 
 // Mã phiên bản: mở <URL Web app>?ping=1 để xem Google đang chạy bản nào
-const VERSION = 'btb-2026-10-20-map';
+const VERSION = 'btb-2026-10-20-map2';
 
 // 1) Trang Contact (đặt lịch) → tab "Bookings"
 const BOOKINGS = 'Bookings';
@@ -77,8 +77,11 @@ const MAP_URL = 'https://thenthi.github.io/Beyond_The_Books/assets/library-map.j
 
 const esc_ = (v) => String(v || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+// Gmail gộp các mail giống nhau thành một chuỗi và ẩn phần lặp lại (bản đồ, câu bảo mật) sau nút "…".
+// Mỗi mail có mã riêng ở cuối nên không bao giờ bị coi là trùng → bản đồ luôn hiện đầy đủ.
 function sendMail_(to, subject, intro, rows, withMap) {
   if (!to) return;
+  const ref = 'BTB-' + Date.now().toString(36).toUpperCase();
   const table = rows.map(([k, v]) =>
     `<tr><td style="padding:4px 12px 4px 0;color:#6b6b6b">${esc_(k)}</td><td style="padding:4px 0"><b>${esc_(v)}</b></td></tr>`).join('');
   const html = `<div style="font-family:Arial,sans-serif;color:#1f2a27;line-height:1.5;max-width:520px">
@@ -91,10 +94,11 @@ function sendMail_(to, subject, intro, rows, withMap) {
       style="display:block;width:100%;max-width:520px;height:auto;border:1px solid #e4ddd2;border-radius:8px" /></a>` : ''}
     <p style="padding:12px 14px;background:#fff7ec;border-left:4px solid #a8bfa3;border-radius:6px">🔒 ${PRIVACY_NOTE}</p>
     <p>See you soon,<br>The Beyond The Books team</p>
+    <p style="font-size:12px;color:#9a9a9a">Reference: ${ref}</p>
   </div>`;
   const text = intro + '\n\n' + rows.map(([k, v]) => `${k}: ${v}`).join('\n') +
     (withMap ? `\n\nWhere to meet: ${MEET_PLACE}\nMap: ${MAP_URL}` : '') +
-    '\n\n' + PRIVACY_NOTE + '\n\nThe Beyond The Books team';
+    '\n\n' + PRIVACY_NOTE + '\n\nThe Beyond The Books team\nReference: ' + ref;
   // Lỗi gửi mail (sai địa chỉ, hết hạn mức) không được làm hỏng việc lưu dữ liệu
   try {
     MailApp.sendEmail({ to: to, subject: subject, body: text, htmlBody: html, name: 'Beyond The Books' });
@@ -145,7 +149,7 @@ function doPost(e) {
 
     sheet.appendRow([new Date(), data.personId, data.personName, data.topic, text_(data.date),
       text_(data.time), data.name, data.email, data.gender || '', data.message || '']);
-    sendMail_(data.email, 'Your Beyond The Books booking is confirmed',
+    sendMail_(data.email, `Booking confirmed: ${data.personName}, ${data.date} at ${data.time}`,
       `Hi ${data.name}, your session is booked! Here are the details:`,
       [['Living Book', data.personName], ['Topic', data.topic], ['Date', data.date], ['Time', data.time]], true);
     return json_({ ok: true });
