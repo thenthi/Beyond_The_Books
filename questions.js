@@ -1,6 +1,6 @@
 // Form dạng "khung câu hỏi" dùng chung cho trang Be a Living Book và trang Feedback (FAQ).
 // data-type trên <form> quyết định dữ liệu được lưu vào tab nào trên Google Sheet.
-// data-no-save: không lưu đi đâu cả, chỉ hiện lời cảm ơn (trang FAQ / Feedback).
+// data-no-save: không lưu đi đâu cả, chỉ hiện lời cảm ơn.
 const form = document.querySelector('#q-form');
 const submitBtn = form.querySelector('button[type="submit"]');
 const errorBox = document.querySelector('#form-error');
@@ -16,6 +16,16 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.q-card').forEach((card) => observer.observe(card));
 
+// Chọn "Something new" (ô có data-other) thì hiện ô để gõ thêm
+document.querySelectorAll('[data-other]').forEach((box) => {
+  const other = document.getElementById(box.dataset.other);
+  box.addEventListener('change', () => {
+    other.hidden = !box.checked;
+    if (box.checked) other.focus();
+    else other.value = '';
+  });
+});
+
 function showError(text) {
   errorBox.textContent = text;
   errorBox.hidden = false;
@@ -25,7 +35,11 @@ function showError(text) {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const answers = Object.fromEntries(new FormData(form));
+  // Câu chọn nhiều đáp án (checkbox) gộp lại thành "Art, Film, …"
+  const answers = {};
+  for (const [key, value] of new FormData(form)) {
+    answers[key] = answers[key] ? `${answers[key]}, ${value}` : value;
+  }
 
   // Form feedback: không bắt buộc câu nào, nhưng phải trả lời ít nhất 1 câu
   if (form.hasAttribute('data-need-one') && !Object.values(answers).some((v) => v.trim())) {

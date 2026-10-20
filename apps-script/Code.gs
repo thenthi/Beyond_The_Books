@@ -5,7 +5,7 @@
  */
 
 // Mã phiên bản: mở <URL Web app>?ping=1 để xem Google đang chạy bản nào
-const VERSION = 'btb-2026-10-14-nophone';
+const VERSION = 'btb-2026-10-20-feedback';
 
 // 1) Trang Contact (đặt lịch) → tab "Bookings"
 const BOOKINGS = 'Bookings';
@@ -23,6 +23,19 @@ const LIVING_HEADERS = ['Created at',
   'Q5 Why would you like to be a Living Book? What interested you?',
   'Q6 Do you have experience with similar events? Can you tell us more about it?',
   'Q7 What qualities do you have that would make you a good Living Book?'];
+
+// 3) Trang FAQ, phần Feedback for us (faq.html) → tab "Feedback"
+const FEEDBACK = 'Feedback';
+const FEEDBACK_HEADERS = ['Created at',
+  'Q1 Overall, how satisfied were you with Beyond the Books?',
+  'Q2 Was the booking process easy to use?',
+  'Q3 Did Beyond the Books help you feel more connected to others?',
+  'Q4 How was the length of your session?',
+  'Q5 Would you join another session in the future?',
+  'Q6 Would you recommend Beyond the Books to a friend?',
+  'Q7 Which topics would you like to see more of?',
+  'Q7 Something new (typed)',
+  "Q8 Anything else you'd like to tell us?"];
 
 function getSheet_(name, headers) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -44,11 +57,12 @@ function json_(obj) {
 // Thêm dấu ' để Sheets giữ nguyên dạng chữ, không tự đổi "2026-10-17" / "10:30" thành ngày giờ
 const text_ = (v) => "'" + String(v || '');
 
-// Chạy hàm này 1 lần trong Apps Script (nút ▶ Run) để tạo sẵn 2 tab với đúng tiêu đề cột
+// Chạy hàm này 1 lần trong Apps Script (nút ▶ Run) để tạo sẵn 3 tab với đúng tiêu đề cột
 // và cấp quyền gửi email cho script
 function setup() {
   getSheet_(BOOKINGS, BOOKING_HEADERS);
   getSheet_(LIVING_BOOKS, LIVING_HEADERS);
+  getSheet_(FEEDBACK, FEEDBACK_HEADERS);
   Logger.log('Emails left today: ' + MailApp.getRemainingDailyQuota());
 }
 
@@ -91,13 +105,21 @@ function doGet(e) {
   return json_({ ok: true, booked: booked });
 }
 
-// POST (body JSON) → lưu đơn Be a Living Book hoặc booking
+// POST (body JSON) → lưu feedback, đơn Be a Living Book hoặc booking
 function doPost(e) {
   const data = JSON.parse(e.postData.contents);
   const lock = LockService.getScriptLock();
   lock.waitLock(10000); // tránh 2 người đặt cùng lúc
 
   try {
+    // Feedback không có email nên không gửi mail
+    if (data.type === 'feedback') {
+      getSheet_(FEEDBACK, FEEDBACK_HEADERS).appendRow([new Date(),
+        data.q1 || '', data.q2 || '', data.q3 || '', data.q4 || '', data.q5 || '', data.q6 || '',
+        data.q7 || '', data.q7_other || '', data.q8 || '']);
+      return json_({ ok: true });
+    }
+
     if (data.type === 'livingbook') {
       getSheet_(LIVING_BOOKS, LIVING_HEADERS).appendRow([new Date(),
         data.q1, data.q2, data.q3, data.q4, data.q5, data.q6, data.q7]);

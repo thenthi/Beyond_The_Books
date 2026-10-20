@@ -58,7 +58,7 @@
 
       <h2 class="page-title faq-feedback-title" id="feedback">Feedback for us</h2>
 
-      <form id="q-form" class="q-list" data-type="feedback" data-need-one data-no-save>
+      <form id="q-form" class="q-list" data-type="feedback" data-need-one>
         <p class="q-note">Tap to choose. Answer as many as you like.</p>
           <div class="q-card" role="group" aria-labelledby="q1-label">
             <p class="q-label" id="q1-label"><span class="q-num">Q1</span>Overall, how satisfied were you with Beyond the Books?</p>
@@ -141,7 +141,8 @@
               <label class="choice"><input type="checkbox" name="q7" value="Sport" /><span>Sport</span></label>
               <label class="choice"><input type="checkbox" name="q7" value="Fashion" /><span>Fashion</span></label>
               <label class="choice"><input type="checkbox" name="q7" value="Film" /><span>Film</span></label>
-              <label class="choice"><input type="checkbox" name="q7" value="Something new" /><span>Something new</span></label>
+              <label class="choice"><input type="checkbox" name="q7" value="Something new" data-other="q7-other" /><span>Something new</span></label>
+              <input class="choice-other" id="q7-other" name="q7_other" placeholder="Which topic would you like?" aria-label="Which new topic would you like?" hidden />
             </div>
           </div>
           <div class="q-anchor" aria-hidden="true">

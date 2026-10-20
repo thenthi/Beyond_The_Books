@@ -1965,3 +1965,9 @@ body:has(.rules) .site-footer {
   text-align: center;
   color: var(--muted);
 }
+
+/* ô gõ thêm khi chọn "Something new" */
+.q-card input.choice-other {
+  margin: 2px 0 0 38px;
+  width: calc(100% - 38px);
+}

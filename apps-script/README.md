@@ -4,6 +4,7 @@ Khi làm xong:
 
 - Mỗi lượt đặt lịch (trang Contact) được lưu vào tab **Bookings**.
 - Mỗi đơn đăng ký **Be a Living Book** được lưu vào tab **Living Book applications**.
+- Mỗi phiếu **Feedback for us** (trang FAQ) được lưu vào tab **Feedback**.
 - Khung giờ đã có người đặt sẽ hiện **Booked** và không chọn được nữa.
 
 > Làm trên **một Google Sheet mới tinh**, đừng dùng lại Sheet cũ, để tránh lẫn với code cũ.
@@ -26,7 +27,7 @@ Khi làm xong:
 1. Trên thanh công cụ của Apps Script, ở ô chọn hàm (cạnh nút ▶ Run), chọn **`setup`**.
 2. Bấm **▶ Run**.
 3. Lần đầu Google sẽ hỏi quyền: **Review permissions** → chọn tài khoản → **Advanced** → **Go to … (unsafe)** → **Allow**.
-4. Quay lại tab Google Sheet. Bạn sẽ thấy 2 tab mới: **Bookings** và **Living Book applications**, có sẵn hàng tiêu đề. Nếu chưa thấy hai tab này thì code chưa chạy, đừng làm tiếp.
+4. Quay lại tab Google Sheet. Bạn sẽ thấy 3 tab mới: **Bookings**, **Living Book applications** và **Feedback**, có sẵn hàng tiêu đề. Nếu chưa thấy ba tab này thì code chưa chạy, đừng làm tiếp.
 
 ## Bước 4: Deploy (chỉ làm "New deployment" một lần duy nhất)
 
@@ -45,7 +46,7 @@ Dán URL vào trình duyệt và thêm `?ping=1` vào cuối, ví dụ:
 https://script.google.com/macros/s/…/exec?ping=1
 ```
 
-Trang phải hiện: `{"ok":true,"version":"btb-2026-10-14-nophone"}`. Nếu đúng như vậy, gửi URL này cho người phụ trách web để dán vào dòng `BOOKING_API_URL` trong [`../api.js`](../api.js).
+Trang phải hiện: `{"ok":true,"version":"btb-2026-10-20-feedback"}`. Nếu đúng như vậy, gửi URL này cho người phụ trách web để dán vào dòng `BOOKING_API_URL` trong [`../api.js`](../api.js).
 
 ## Khi cần sửa code sau này
 
