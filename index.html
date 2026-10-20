@@ -32,7 +32,7 @@
       </section>
 
       <!-- About -->
-      <section class="about">
+      <section class="about" id="about">
         <img class="deco deco-envelope" src="assets/flower-5.svg" alt="" />
         <img class="deco deco-gift" src="assets/flower-6.svg" alt="" />
         <h2>About us</h2>
@@ -101,6 +101,26 @@
         </div>
       </section>
     </main>
+
+    <!-- Lời chào khi vào trang từ mã QR trên card (link có ?from=qr) -->
+    <dialog class="welcome" id="welcome" aria-labelledby="welcome-title" autofocus>
+      <button class="welcome-close" type="button" aria-label="Close" data-close></button>
+      <img class="welcome-mascot" src="assets/mascot-think.svg" width="639" height="934" alt="" />
+      <h2 id="welcome-title">Welcome to Beyond The Books!</h2>
+      <p class="welcome-sub">Is this your first time with us?</p>
+      <div class="welcome-choices">
+        <div class="welcome-choice">
+          <h3>I'm new here</h3>
+          <p>Start with our introduction, steps and rules on this page.</p>
+          <a class="btn welcome-btn-new" href="#about" data-close>Show me around</a>
+        </div>
+        <div class="welcome-choice">
+          <h3>I've joined before</h3>
+          <p>Jump straight in and pick your next Living Book.</p>
+          <a class="btn welcome-btn-go" href="booking.html">Go to booking →</a>
+        </div>
+      </div>
+    </dialog>
 
     <footer class="site-footer">© 2026 Beyond The Books</footer>
   </body>

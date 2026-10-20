@@ -678,13 +678,16 @@ body:has(.rules) .site-footer {
 .topic-list {
   display: flex;
   flex-direction: column;
-  gap: 58px; /* chừa chỗ cho hoa, ong, bướm giữa các bìa */
-  margin-inline: -10px; /* folder rộng hơn khung trang một chút */
+  gap: 80px; /* chừa chỗ cho hoa, ong và mép card trồi lên giữa các bìa */
+  margin-top: 84px; /* chừa chỗ để card của folder đầu tiên trồi lên mà không che ô tìm kiếm */
   padding-bottom: 40px;
 }
 
 .topic {
-  --cover-h: 118px;
+  /* mọi chuyển động khi mở folder dùng chung tốc độ + đường cong để chạy khớp, mượt */
+  --open-time: 0.5s;
+  --open-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --cover-h: 130px;
   --back-gap: 14px; /* phần bìa sau lộ ra phía trên bìa trước */
   scroll-margin-top: 80px;
   isolation: isolate;
@@ -697,7 +700,7 @@ body:has(.rules) .site-footer {
   position: absolute;
   z-index: -1;
   background: color-mix(in srgb, var(--topic-color) 86%, #1f2a27);
-  transition: height 0.4s ease, bottom 0.4s ease;
+  transition: height var(--open-time) var(--open-ease), bottom var(--open-time) var(--open-ease);
 }
 
 .topic::before {
@@ -739,7 +742,7 @@ body:has(.rules) .site-footer {
   color: var(--topic-ink);
   box-shadow: var(--pop);
   cursor: pointer;
-  transition: margin-top 0.4s ease, min-height 0.4s ease, transform 0.2s ease;
+  transition: margin-top var(--open-time) var(--open-ease), min-height var(--open-time) var(--open-ease), transform 0.2s ease;
 }
 
 .cover:hover {
@@ -768,7 +771,29 @@ body:has(.rules) .site-footer {
   display: block;
 }
 
-/* các ngăn card bên trong bìa: đóng/mở bằng grid rows */
+/* mũi tên nhảy nhẹ chỉ lên phía card */
+.cover-hint::before {
+  content: "↑";
+  display: inline-block;
+  margin-right: 6px;
+  font-weight: 700;
+  animation: hint-up 1.3s ease-in-out infinite;
+}
+
+@keyframes hint-up {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topic.open .book-card,
+  .cover-hint::before {
+    animation: none;
+  }
+}
+
+/* Các card nằm sẵn trong folder (sau bìa trước). Mở folder thì card chỉ trượt lên bằng transform,
+   bố cục trang không đổi nên folder và chữ topic đứng yên, không bị giật. */
 .topic {
   --card-h: 160px;
   --edge: 30px; /* phần mép card lộ ra trên miệng bìa — đủ dày để chạm trên điện thoại */
@@ -781,35 +806,26 @@ body:has(.rules) .site-footer {
 }
 
 .deck-wrap {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s ease;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; /* đáy chồng card trùng đáy folder */
+  z-index: 1; /* nằm sau bìa trước (z-index 5) */
+  /* phần card nằm dưới đáy folder bị cắt đi; phía trên để thoải mái cho card trồi lên */
+  clip-path: inset(-100vh -40px 0 -40px);
+  visibility: hidden;
+  transition: visibility 0s var(--open-time);
 }
 
 .topic.open .deck-wrap {
-  grid-template-rows: 1fr;
-}
-
-.deck-inner {
-  overflow: hidden;
-}
-
-.topic.open .deck-inner {
-  overflow: visible;
-  /* lúc card đang trượt lên, phần nằm dưới đáy folder bị cắt đi (không lòi chữ Book ra dưới bìa);
-     phía trên để thoải mái cho card trồi lên */
-  clip-path: inset(-100vh -40px 0 -40px);
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 .deck {
   display: flex;
   flex-direction: column;
-  padding: 10px 12px 0;
-}
-
-/* bìa che gần hết card, chỉ chừa mép trên của từng ngăn */
-.topic.open .cover {
-  margin-top: calc(var(--edge) - var(--card-h)); /* bìa đủ cao (--cover-h) để đựng trọn card */
+  padding: 0 12px;
 }
 
 .book-card {
@@ -823,17 +839,32 @@ body:has(.rules) .site-footer {
   border: 1.5px solid var(--text);
   border-radius: 10px 10px 0 0;
   box-shadow: 0 -3px 8px rgba(31, 42, 39, 0.08);
-  transform: translateY(60px);
-  transition: transform 0.4s ease;
+  transform: translateY(calc(var(--edge) * 3 + 20px));
+  transition: transform var(--open-time) var(--open-ease);
+  will-change: transform;
 }
 
 .book-card + .book-card {
   margin-top: calc(var(--edge) - var(--card-h));
 }
 
+/* đóng: card nằm thụt hẳn xuống sau bìa · mở: trồi lên, mỗi card lộ một mép phía trên bìa */
 .topic.open .book-card {
   transform: none;
-  transition-delay: calc(var(--i) * 0.06s + 0.15s);
+  transition-delay: calc(var(--i) * 0.04s + 0.05s);
+}
+
+/* Gợi ý bước tiếp theo: mở folder xong, các card lần lượt nhún lên như "chạm vào tôi";
+   dùng thuộc tính translate (riêng với transform đang lo việc trượt lên) nên hai chuyển động không đè nhau.
+   Chạm vào card rồi thì thôi nhún. */
+.topic.open:not(.has-lifted) .book-card {
+  animation: card-nudge 2.6s ease-in-out calc(0.7s + var(--i) * 0.18s) infinite;
+}
+
+@keyframes card-nudge {
+  0%, 30%, 100% { translate: 0 0; }
+  10% { translate: 0 -14px; }
+  20% { translate: 0 -4px; }
 }
 
 /* chạm vào ngăn nào thì card đó trồi lên khỏi bìa */
@@ -846,15 +877,6 @@ body:has(.rules) .site-footer {
 .topic.open .book-card.behind {
   transform: translateY(calc(var(--lift) * -1));
   transition-delay: 0s;
-}
-
-/* chừa chỗ phía trên để card trồi lên không đè lên topic khác */
-.deck {
-  transition: padding-top 0.4s ease;
-}
-
-.topic.has-lifted .deck {
-  padding-top: calc(var(--lift) + 10px);
 }
 
 .book-card {
@@ -1814,6 +1836,7 @@ body:has(.rules) .site-footer {
 /* ===== Booking: ô tìm kiếm Living Book ===== */
 .search {
   position: relative;
+  z-index: 20; /* luôn nằm trên card đang trồi lên */
   margin: 8px 0 28px;
 }
 
@@ -1917,4 +1940,111 @@ body:has(.rules) .site-footer {
 .q-card input.choice-other {
   margin: 2px 0 0 38px;
   width: calc(100% - 38px);
+}
+
+/* ===== Lời chào khi quét mã QR (trang chủ) ===== */
+.welcome {
+  width: min(92vw, 420px);
+  max-height: 90vh;
+  margin: auto;
+  padding: 26px 20px 20px;
+  border: 1.5px solid var(--text);
+  border-radius: 22px;
+  background: var(--paper);
+  color: var(--text);
+  box-shadow: var(--pop);
+  text-align: center;
+  overflow: auto;
+}
+
+.welcome[open] {
+  animation: welcome-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.welcome::backdrop {
+  background: rgba(31, 42, 39, 0.45);
+  backdrop-filter: blur(3px);
+}
+
+@keyframes welcome-in {
+  from { opacity: 0; scale: 0.9; }
+  to { opacity: 1; scale: 1; }
+}
+
+.welcome-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  background:
+    linear-gradient(45deg, transparent 46%, var(--text) 46%, var(--text) 54%, transparent 54%) center / 14px 14px no-repeat,
+    linear-gradient(-45deg, transparent 46%, var(--text) 46%, var(--text) 54%, transparent 54%) center / 14px 14px no-repeat,
+    #fff;
+  cursor: pointer;
+}
+
+.welcome-mascot {
+  width: 70px;
+  height: auto;
+  margin: 0 auto 6px;
+}
+
+.welcome h2 {
+  font-family: var(--hand);
+  font-size: 34px;
+  line-height: 1.05;
+}
+
+.welcome-sub {
+  margin: 6px 0 18px;
+  color: var(--muted);
+}
+
+.welcome-choices {
+  display: grid;
+  gap: 12px;
+}
+
+.welcome-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px;
+  border: 1.5px solid var(--text);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.welcome-choice:first-child { background: #fff7ec; }
+.welcome-choice:last-child { background: #eef3ec; }
+
+.welcome-choice h3 {
+  font-size: 18px;
+}
+
+.welcome-choice p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.welcome-btn-new {
+  background: #fff;
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome[open] { animation: none; }
+}
+
+.welcome:focus {
+  outline: none;
+}
+
+.about {
+  scroll-margin-top: 80px; /* "Show me around" cuộn tới, không bị thanh menu che */
 }

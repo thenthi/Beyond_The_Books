@@ -56,6 +56,7 @@ list.addEventListener('click', (e) => {
   const topic = cover.parentElement;
   const willOpen = !topic.classList.contains('open');
 
+  dropCards();
   list.querySelectorAll('.topic.open').forEach((t) => {
     t.classList.remove('open');
     t.querySelector('.cover').setAttribute('aria-expanded', 'false');
@@ -64,7 +65,6 @@ list.addEventListener('click', (e) => {
   if (willOpen) {
     topic.classList.add('open');
     cover.setAttribute('aria-expanded', 'true');
-    setTimeout(() => topic.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350);
   }
 });
 

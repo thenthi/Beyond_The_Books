@@ -54,3 +54,13 @@ document.querySelectorAll('input[data-gmail]').forEach((input) => {
     }
   });
 });
+
+// Vào trang chủ từ mã QR (?from=qr): hiện lời chào hỏi người mới / người cũ
+const welcome = document.querySelector('#welcome');
+if (welcome && new URLSearchParams(location.search).get('from') === 'qr') {
+  history.replaceState(null, '', location.pathname + location.hash); // tải lại trang thì không hiện nữa
+  welcome.showModal();
+  welcome.addEventListener('click', (e) => {
+    if (e.target === welcome || e.target.closest('[data-close]')) welcome.close(); // chạm ra ngoài hoặc nút đóng
+  });
+}
