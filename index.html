@@ -103,21 +103,18 @@
     </main>
 
     <!-- Lời chào khi vào trang từ mã QR trên card (link có ?from=qr) -->
-    <dialog class="welcome" id="welcome" aria-labelledby="welcome-title" autofocus>
+    <dialog class="welcome" id="welcome" aria-labelledby="welcome-title" tabindex="-1">
       <button class="welcome-close" type="button" aria-label="Close" data-close></button>
       <img class="welcome-mascot" src="assets/mascot-think.svg" width="639" height="934" alt="" />
-      <h2 id="welcome-title">Welcome to Beyond The Books!</h2>
-      <p class="welcome-sub">Is this your first time with us?</p>
+      <h2 id="welcome-title">Welcome!</h2>
       <div class="welcome-choices">
         <div class="welcome-choice">
-          <h3>I'm new here</h3>
-          <p>Start with our introduction, steps and rules on this page.</p>
-          <a class="btn welcome-btn-new" href="#about" data-close>Show me around</a>
+          <p>New participant?<br /><span>Explore the home page to get to know us.</span></p>
+          <button class="btn welcome-btn-new" type="button" data-close>Explore the home page</button>
         </div>
         <div class="welcome-choice">
-          <h3>I've joined before</h3>
-          <p>Jump straight in and pick your next Living Book.</p>
-          <a class="btn welcome-btn-go" href="booking.html">Go to booking →</a>
+          <p>Old participant?</p>
+          <a class="btn welcome-btn-go" href="booking.html">Go to the booking page →</a>
         </div>
       </div>
     </dialog>

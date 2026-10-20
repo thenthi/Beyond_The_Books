@@ -60,6 +60,7 @@ const welcome = document.querySelector('#welcome');
 if (welcome && new URLSearchParams(location.search).get('from') === 'qr') {
   history.replaceState(null, '', location.pathname + location.hash); // tải lại trang thì không hiện nữa
   welcome.showModal();
+  welcome.focus(); // đặt con trỏ vào khung thông báo, không vào nút ✕ (đỡ hiện viền xanh)
   welcome.addEventListener('click', (e) => {
     if (e.target === welcome || e.target.closest('[data-close]')) welcome.close(); // chạm ra ngoài hoặc nút đóng
   });
