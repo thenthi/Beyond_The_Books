@@ -31,65 +31,132 @@
       <h1 class="page-title">Be a Living Book</h1>
 
       <form id="q-form" class="q-list" data-type="livingbook">
-        <h2 class="q-section">About you</h2>
-        <p class="q-note">All questions are required.</p>
-          <div class="q-card">
-            <label for="q1"><span class="q-num">Q1</span>What's your name?</label>
-            <input id="q1" name="q1" required autocomplete="name" />
-          </div>
-          <div class="q-anchor" aria-hidden="true">
-            <div class="bouquet right">
-              <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
-              <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
-              <img class="bq-flower big" src="assets/flower-5.svg" alt="" />
-              <img class="bq-flower small" src="assets/flower-6.svg" alt="" />
+        <!-- Bước 1: About you → Next → Bước 2: câu hỏi tình huống → Submit -->
+        <div class="q-step" id="step-1">
+          <h2 class="q-section">About you</h2>
+          <p class="q-note">All questions are required.</p>
+            <div class="q-card">
+              <label for="q1"><span class="q-num">Q1</span>What's your name?</label>
+              <input id="q1" name="q1" required autocomplete="name" />
             </div>
-          </div>
-          <div class="q-card">
-            <img class="q-deco q-bee" src="assets/bee.svg" alt="" />
-            <label for="q2"><span class="q-num">Q2</span>Email address</label>
-            <input id="q2" name="q2" type="email" required autocomplete="email" pattern="[^@\s]+@[gG][mM][aA][iI][lL]\.[cC][oO][mM]" placeholder="yourname@gmail.com" data-gmail />
-          </div>
-          <div class="q-card">
-            <label for="q3"><span class="q-num">Q3</span>What language are you comfortable having a conversation in?</label>
-            <input id="q3" name="q3" required placeholder="e.g. English, Vietnamese" />
-          </div>
-          <div class="q-anchor" aria-hidden="true">
-            <div class="bouquet left">
-              <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
-              <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
-              <img class="bq-flower big" src="assets/flower-1.svg" alt="" />
-              <img class="bq-flower small" src="assets/flower-2.svg" alt="" />
+            <div class="q-anchor" aria-hidden="true">
+              <div class="bouquet right">
+                <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
+                <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
+                <img class="bq-flower big" src="assets/flower-5.svg" alt="" />
+                <img class="bq-flower small" src="assets/flower-6.svg" alt="" />
+              </div>
             </div>
-          </div>
-          <div class="q-card">
-            <label for="q4"><span class="q-num">Q4</span>Which topics would you feel comfortable/confident talking about as a Living Book?</label>
-            <textarea id="q4" name="q4" required rows="3"></textarea>
-          </div>
-          <div class="q-card">
-            <label for="q5"><span class="q-num">Q5</span>Why would you like to be a Living Book? What interested you?</label>
-            <textarea id="q5" name="q5" required rows="4"></textarea>
-          </div>
-          <div class="q-card">
-            <label for="q6"><span class="q-num">Q6</span>Do you have experience with similar events? Can you tell us more about it?</label>
-            <textarea id="q6" name="q6" required rows="4"></textarea>
-          </div>
-          <div class="q-anchor" aria-hidden="true">
-            <div class="bouquet right">
-              <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
-              <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
-              <img class="bq-flower big" src="assets/flower-6.svg" alt="" />
-              <img class="bq-flower small" src="assets/flower-4.svg" alt="" />
+            <div class="q-card">
+              <img class="q-deco q-bee" src="assets/bee.svg" alt="" />
+              <label for="q2"><span class="q-num">Q2</span>Email address</label>
+              <input id="q2" name="q2" type="email" required autocomplete="email" pattern="[^@\s]+@[gG][mM][aA][iI][lL]\.[cC][oO][mM]" placeholder="yourname@gmail.com" data-gmail />
             </div>
-          </div>
-          <div class="q-card">
-            <label for="q7"><span class="q-num">Q7</span>What qualities do you have that would make you a good Living Book?</label>
-            <textarea id="q7" name="q7" required rows="4"></textarea>
-          </div>
+            <div class="q-card">
+              <label for="q3"><span class="q-num">Q3</span>What language are you comfortable having a conversation in?</label>
+              <input id="q3" name="q3" required placeholder="e.g. English, Vietnamese" />
+            </div>
+            <div class="q-anchor" aria-hidden="true">
+              <div class="bouquet left">
+                <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
+                <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
+                <img class="bq-flower big" src="assets/flower-1.svg" alt="" />
+                <img class="bq-flower small" src="assets/flower-2.svg" alt="" />
+              </div>
+            </div>
+            <div class="q-card">
+              <label for="q4"><span class="q-num">Q4</span>Which topics would you feel comfortable/confident talking about as a Living Book?</label>
+              <textarea id="q4" name="q4" required rows="3"></textarea>
+            </div>
+            <div class="q-card">
+              <label for="q5"><span class="q-num">Q5</span>Why would you like to be a Living Book? What interested you?</label>
+              <textarea id="q5" name="q5" required rows="4"></textarea>
+            </div>
+            <div class="q-card">
+              <label for="q6"><span class="q-num">Q6</span>Do you have experience with similar events? Can you tell us more about it?</label>
+              <textarea id="q6" name="q6" required rows="4"></textarea>
+            </div>
+            <div class="q-anchor" aria-hidden="true">
+              <div class="bouquet right">
+                <img class="bq-leaf l1" src="assets/leaf-2.svg" alt="" />
+                <img class="bq-leaf l2" src="assets/leaf-1.svg" alt="" />
+                <img class="bq-flower big" src="assets/flower-6.svg" alt="" />
+                <img class="bq-flower small" src="assets/flower-4.svg" alt="" />
+              </div>
+            </div>
+            <div class="q-card">
+              <label for="q7"><span class="q-num">Q7</span>What qualities do you have that would make you a good Living Book?</label>
+              <textarea id="q7" name="q7" required rows="4"></textarea>
+            </div>
 
-        <p class="privacy-note">🔒 Your information is kept private and only used to organise your session. We'll email you a confirmation.</p>
-        <p class="form-error" id="form-error" role="alert" hidden></p>
-        <button class="btn q-submit" type="submit">Submit</button>
+          <button class="btn q-submit" type="button" data-next="step-2">Next →</button>
+        </div>
+
+        <div class="q-step" id="step-2" hidden>
+          <h2 class="q-section">Scenarios</h2>
+          <p class="q-note">Choose the answer that best describes what you would do. All questions are required.</p>
+            <div class="q-card" role="radiogroup" aria-labelledby="s1-label">
+              <p class="q-label" id="s1-label"><span class="q-num">Q1 · Personal Boundaries</span>During a conversation, a participant asks you a very personal question/experience that you do not feel comfortable answering. You politely decline, but they ask again and say, “Why not? You’re a Living Book, so aren’t you supposed to tell us everything?” What would you do?</p>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="s1" value="Give a brief answer so the participant understands why you do not want to discuss it further." required /><span>Give a brief answer so the participant understands why you do not want to discuss it further.</span></label>
+                <label class="choice"><input type="radio" name="s1" value="Clearly explain that being a Living Book does not mean giving up personal boundaries, decline the question again, and suggest another topic." /><span>Clearly explain that being a Living Book does not mean giving up personal boundaries, decline the question again, and suggest another topic.</span></label>
+                <label class="choice"><input type="radio" name="s1" value="Answering them fully while in a bad mood." /><span>Answering them fully while in a bad mood.</span></label>
+                <label class="choice"><input type="radio" name="s1" value="Remind them that Living Books can choose what they are comfortable sharing and ask if they would like to continue with another topic." /><span>Remind them that Living Books can choose what they are comfortable sharing and ask if they would like to continue with another topic.</span></label>
+              </div>
+            </div>
+            <div class="q-card" role="radiogroup" aria-labelledby="s2-label">
+              <p class="q-label" id="s2-label"><span class="q-num">Q2 · Handling Disagreements</span>A participant strongly disagrees with your opinion during the conversation. What would you do?</p>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="s2" value="Explain why their opinion is incorrect so the conversation does not become misleading." required /><span>Explain why their opinion is incorrect so the conversation does not become misleading.</span></label>
+                <label class="choice"><input type="radio" name="s2" value="Acknowledge that you have different opinions and calmly explain your perspective without trying to change theirs." /><span>Acknowledge that you have different opinions and calmly explain your perspective without trying to change theirs.</span></label>
+                <label class="choice"><input type="radio" name="s2" value="Convince them to follow your opinion." /><span>Convince them to follow your opinion.</span></label>
+                <label class="choice"><input type="radio" name="s2" value="Listen to their perspective, ask a clarifying question, and then share your own view respectfully." /><span>Listen to their perspective, ask a clarifying question, and then share your own view respectfully.</span></label>
+              </div>
+            </div>
+            <div class="q-card" role="radiogroup" aria-labelledby="s3-label">
+              <p class="q-label" id="s3-label"><span class="q-num">Q3 · Personal Space and Physical Boundaries</span>A participant moves very close to you or touches your arm repeatedly during the conversation, and you feel uncomfortable.</p>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="s3" value="Move your chair further away without saying anything and see whether the behaviour stops." required /><span>Move your chair further away without saying anything and see whether the behaviour stops.</span></label>
+                <label class="choice"><input type="radio" name="s3" value="Ignore it because maybe they just try to be friendly." /><span>Ignore it because maybe they just try to be friendly.</span></label>
+                <label class="choice"><input type="radio" name="s3" value="Move back, clearly ask them to respect your personal space, and end/report the session if the behaviour continues." /><span>Move back, clearly ask them to respect your personal space, and end/report the session if the behaviour continues.</span></label>
+                <label class="choice"><input type="radio" name="s3" value="Move back, tell them to stop, and end the conversation." /><span>Move back, tell them to stop, and end the conversation.</span></label>
+              </div>
+            </div>
+            <div class="q-card" role="radiogroup" aria-labelledby="s4-label">
+              <p class="q-label" id="s4-label"><span class="q-num">Q4 · Inappropriate Behaviour</span>A participant makes an inappropriate comment. You tell them it makes you uncomfortable, but they keep going. What would you do?</p>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="s4" value="Clearly state that the boundary has already been communicated, end the conversation, and report the incident to the project team." required /><span>Clearly state that the boundary has already been communicated, end the conversation, and report the incident to the project team.</span></label>
+                <label class="choice"><input type="radio" name="s4" value="Respond in the same way to make them understand the feeling." /><span>Respond in the same way to make them understand the feeling.</span></label>
+                <label class="choice"><input type="radio" name="s4" value="Remind them of the rules one more time and continue only if their behaviour changes." /><span>Remind them of the rules one more time and continue only if their behaviour changes.</span></label>
+                <label class="choice"><input type="radio" name="s4" value="Ignore it and continue the conversation." /><span>Ignore it and continue the conversation.</span></label>
+              </div>
+            </div>
+            <div class="q-card" role="radiogroup" aria-labelledby="s5-label">
+              <p class="q-label" id="s5-label"><span class="q-num">Q5 · Handling a Silent Participant</span>During a conversation, the participant remains completely silent and does not respond to your questions or attempt to continue the conversation. What would you do?</p>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="s5" value="Continue talking about your own experiences until the participant starts responding." required /><span>Continue talking about your own experiences until the participant starts responding.</span></label>
+                <label class="choice"><input type="radio" name="s5" value="Ask gentle, open-ended questions about their interests, give them time to respond, and offer another topic to help them feel more comfortable." /><span>Ask gentle, open-ended questions about their interests, give them time to respond, and offer another topic to help them feel more comfortable.</span></label>
+                <label class="choice"><input type="radio" name="s5" value="Tell them that they need to participate because the purpose is to have a conversation." /><span>Tell them that they need to participate because the purpose is to have a conversation.</span></label>
+                <label class="choice"><input type="radio" name="s5" value="End the conversation immediately because they do not seem interested." /><span>End the conversation immediately because they do not seem interested.</span></label>
+              </div>
+            </div>
+            <div class="q-card" role="radiogroup" aria-labelledby="s6-label">
+              <p class="q-label" id="s6-label"><span class="q-num">Q6 · Handling an Overly Talkative Participant</span>During a conversation, the participant talks continuously, frequently interrupts you, and leaves little opportunity for you to share your own experiences. What would you do?</p>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="s6" value="Interrupt them and take control of the conversation." required /><span>Interrupt them and take control of the conversation.</span></label>
+                <label class="choice"><input type="radio" name="s6" value="Remain silent and let them continue because you want them to feel heard." /><span>Remain silent and let them continue because you want them to feel heard.</span></label>
+                <label class="choice"><input type="radio" name="s6" value="Politely acknowledge what they have shared, then guide the conversation towards a more balanced exchange by asking a question or sharing your own perspective." /><span>Politely acknowledge what they have shared, then guide the conversation towards a more balanced exchange by asking a question or sharing your own perspective.</span></label>
+                <label class="choice"><input type="radio" name="s6" value="Tell them directly that they are talking too much and need to stop." /><span>Tell them directly that they are talking too much and need to stop.</span></label>
+              </div>
+            </div>
+
+          <p class="privacy-note">🔒 Your information is kept private and only used to organise your session. We'll email you a confirmation.</p>
+          <p class="form-error" id="form-error" role="alert" hidden></p>
+          <div class="q-step-nav">
+            <button class="btn q-back" type="button" data-back="step-1">← Back</button>
+            <button class="btn q-submit" type="submit">Submit</button>
+          </div>
+        </div>
       </form>
 
       <div class="thanks card" id="thanks" hidden>

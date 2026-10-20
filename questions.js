@@ -26,6 +26,19 @@ document.querySelectorAll('[data-other]').forEach((box) => {
   });
 });
 
+// Form nhiều bước (trang Be a Living Book): Next chỉ cho qua khi các câu ở bước hiện tại đã hợp lệ
+function goToStep(id) {
+  form.querySelectorAll('.q-step').forEach((step) => { step.hidden = step.id !== id; });
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+form.querySelectorAll('[data-next]').forEach((btn) => btn.addEventListener('click', () => {
+  const fields = btn.closest('.q-step').querySelectorAll('input, textarea, select');
+  if ([...fields].every((f) => f.reportValidity())) goToStep(btn.dataset.next);
+}));
+
+form.querySelectorAll('[data-back]').forEach((btn) => btn.addEventListener('click', () => goToStep(btn.dataset.back)));
+
 function showError(text) {
   errorBox.textContent = text;
   errorBox.hidden = false;

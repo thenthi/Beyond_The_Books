@@ -46,7 +46,7 @@ Dán URL vào trình duyệt và thêm `?ping=1` vào cuối, ví dụ:
 https://script.google.com/macros/s/…/exec?ping=1
 ```
 
-Trang phải hiện: `{"ok":true,"version":"btb-2026-10-20-map2"}`. Nếu đúng như vậy, gửi URL này cho người phụ trách web để dán vào dòng `BOOKING_API_URL` trong [`../api.js`](../api.js).
+Trang phải hiện: `{"ok":true,"version":"btb-2026-10-20-scenarios"}`. Nếu đúng như vậy, gửi URL này cho người phụ trách web để dán vào dòng `BOOKING_API_URL` trong [`../api.js`](../api.js).
 
 ## Khi cần sửa code sau này
 

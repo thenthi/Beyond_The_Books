@@ -1517,11 +1517,13 @@ body:has(.rules) .site-footer {
 
 .q-num {
   display: block;
-  font-family: var(--hand);
-  font-size: 24px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   color: #f28b75;
-  line-height: 1;
-  margin-bottom: 4px;
+  line-height: 1.2;
+  margin-bottom: 6px;
 }
 
 .q-section {
@@ -2075,4 +2077,27 @@ body:has(.rules) .site-footer {
 
 .about {
   scroll-margin-top: 80px; /* "Show me around" cuộn tới, không bị thanh menu che */
+}
+
+/* Form nhiều bước (Be a Living Book) */
+.q-step {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.q-step-nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.q-step-nav .q-submit {
+  margin-top: 0;
+  min-width: 0;
+}
+
+.q-back {
+  background: #fff;
+  color: var(--text);
 }

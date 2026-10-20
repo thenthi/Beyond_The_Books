@@ -5,7 +5,7 @@
  */
 
 // Mã phiên bản: mở <URL Web app>?ping=1 để xem Google đang chạy bản nào
-const VERSION = 'btb-2026-10-20-map2';
+const VERSION = 'btb-2026-10-20-scenarios';
 
 // 1) Trang Contact (đặt lịch) → tab "Bookings"
 const BOOKINGS = 'Bookings';
@@ -22,7 +22,13 @@ const LIVING_HEADERS = ['Created at',
   'Q4 Which topics would you feel comfortable/confident talking about as a Living Book?',
   'Q5 Why would you like to be a Living Book? What interested you?',
   'Q6 Do you have experience with similar events? Can you tell us more about it?',
-  'Q7 What qualities do you have that would make you a good Living Book?'];
+  'Q7 What qualities do you have that would make you a good Living Book?',
+  'Scenario Q1 Personal Boundaries',
+  'Scenario Q2 Handling Disagreements',
+  'Scenario Q3 Personal Space and Physical Boundaries',
+  'Scenario Q4 Inappropriate Behaviour',
+  'Scenario Q5 Handling a Silent Participant',
+  'Scenario Q6 Handling an Overly Talkative Participant'];
 
 // 3) Trang FAQ, phần Feedback for us (faq.html) → tab "Feedback"
 const FEEDBACK = 'Feedback';
@@ -136,7 +142,8 @@ function doPost(e) {
 
     if (data.type === 'livingbook') {
       getSheet_(LIVING_BOOKS, LIVING_HEADERS).appendRow([new Date(),
-        data.q1, data.q2, data.q3, data.q4, data.q5, data.q6, data.q7]);
+        data.q1, data.q2, data.q3, data.q4, data.q5, data.q6, data.q7,
+        data.s1 || '', data.s2 || '', data.s3 || '', data.s4 || '', data.s5 || '', data.s6 || '']);
       sendMail_(data.q2, 'We received your Living Book application',
         `Hi ${data.q1}, thank you for applying to be a Living Book! We have received your application and will get back to you soon.`, []);
       return json_({ ok: true });
