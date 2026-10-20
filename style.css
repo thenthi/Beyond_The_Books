@@ -97,7 +97,6 @@ a {
 
 /* cuộn xuống đè lên nội dung: nền trắng */
 /* nút và menu: ở trên cùng chỉ có viền, cuộn xuống mới tô trắng */
-.site-header.scrolled .header-cta,
 .site-header.scrolled .menu-toggle {
   background-color: #fff;
 }
@@ -109,9 +108,13 @@ a {
 }
 
 .logo {
-  text-decoration: none;
-  font-size: 17px;
-  font-weight: 800;
+  display: block;
+  line-height: 0;
+}
+
+.logo img {
+  width: auto;
+  height: 44px;
 }
 
 .header-actions {
@@ -120,16 +123,41 @@ a {
   gap: 6px;
 }
 
+/* nút Be a Living Book: tô màu cam nổi bật, thỉnh thoảng lắc nhẹ để gây chú ý */
 .header-cta {
   white-space: nowrap;
   text-decoration: none;
   font-size: 13px;
   font-weight: 700;
+  color: var(--text);
   padding: 6px 14px;
-  border: 1.5px solid #ddd5c8;
+  border: 1.5px solid var(--text);
   border-radius: 999px;
-  background: transparent;
-  transition: background-color 0.3s ease;
+  background: #f28b75;
+  box-shadow: 2px 2px 0 var(--text);
+  animation: cta-wiggle 4s ease-in-out 1.5s infinite;
+  transition: translate 0.15s ease, box-shadow 0.15s ease;
+}
+
+.header-cta:hover {
+  translate: -1px -1px;
+  box-shadow: 3px 3px 0 var(--text);
+}
+
+.header-cta:active {
+  translate: 2px 2px;
+  box-shadow: 0 0 0 var(--text);
+}
+
+@keyframes cta-wiggle {
+  0%, 82%, 100% { rotate: 0deg; }
+  86% { rotate: -5deg; }
+  90% { rotate: 4deg; }
+  94% { rotate: -2deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-cta { animation: none; }
 }
 
 /* ===== Nút 3 gạch ===== */
