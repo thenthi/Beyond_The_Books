@@ -679,7 +679,7 @@ body:has(.rules) .site-footer {
   display: flex;
   flex-direction: column;
   gap: 80px; /* chừa chỗ cho hoa, ong và mép card trồi lên giữa các bìa */
-  margin-top: 84px; /* chừa chỗ để card của folder đầu tiên trồi lên mà không che ô tìm kiếm */
+  margin-top: 104px; /* chừa chỗ để card của folder đầu tiên trồi lên mà không che, không dính ô tìm kiếm */
   padding-bottom: 40px;
 }
 
