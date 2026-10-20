@@ -679,11 +679,12 @@ body:has(.rules) .site-footer {
   display: flex;
   flex-direction: column;
   gap: 58px; /* chừa chỗ cho hoa, ong, bướm giữa các bìa */
+  margin-inline: -10px; /* folder rộng hơn khung trang một chút */
   padding-bottom: 40px;
 }
 
 .topic {
-  --cover-h: 140px;
+  --cover-h: 118px;
   --back-gap: 14px; /* phần bìa sau lộ ra phía trên bìa trước */
   scroll-margin-top: 80px;
   isolation: isolate;
@@ -1244,38 +1245,6 @@ body:has(.rules) .site-footer {
   to { opacity: 1; transform: none; }
 }
 
-.butterfly {
-  position: absolute;
-  top: -22px;
-  left: 26px;
-  width: 40px;
-  z-index: 2;
-  animation: fly-in 3s ease-in-out forwards;
-}
-
-.wing {
-  fill: #f3e1a6;
-  stroke: var(--text);
-  stroke-width: 1.1;
-  transform-origin: 20px 16px;
-  animation: flap 0.25s ease-in-out infinite alternate;
-}
-
-.wing-r {
-  fill: #f6c9b6;
-}
-
-@keyframes flap {
-  to { transform: scaleX(0.3); }
-}
-
-@keyframes fly-in {
-  0% { transform: translate(-70vw, 40vh) rotate(20deg); }
-  35% { transform: translate(-40vw, -10vh) rotate(-10deg); }
-  70% { transform: translate(-10vw, 10vh) rotate(15deg); }
-  100% { transform: none; }
-}
-
 .summary {
   display: flex;
   flex-wrap: wrap;
@@ -1569,13 +1538,6 @@ body:has(.rules) .site-footer {
   animation-delay: -1s;
 }
 
-.q-butterfly {
-  right: -12px;
-  top: -28px;
-  width: 54px;
-  animation-delay: -2s;
-}
-
 .form-error {
   padding: 10px 14px;
   border: 1.5px solid #f28b75;
@@ -1585,23 +1547,9 @@ body:has(.rules) .site-footer {
   font-weight: 600;
 }
 
-/* ===== Booking: trang trí hoa lá (của nhóm), ong, bướm ===== */
+/* ===== Booking: trang trí hoa lá (của nhóm), ong ===== */
 .booking-title {
   position: relative;
-}
-
-.b-deco {
-  position: absolute;
-  z-index: 6;
-  pointer-events: none;
-}
-
-.b-title-fly {
-  top: -6px;
-  right: 18%;
-  width: 40px;
-  rotate: 16deg;
-  animation: bob 3.2s ease-in-out infinite;
 }
 
 /* bó hoa nằm sau bìa (z-index thấp hơn bìa), chỉ ló ra ở góc dưới */
@@ -1663,7 +1611,6 @@ body:has(.rules) .site-footer {
 }
 
 .flyer.bee { width: 40px; }
-.flyer.fly { width: 34px; animation-delay: -1.2s; }
 .flyer.left { left: 26%; }
 .flyer.right { right: 26%; }
 .flyer.bee.left { scale: -1 1; }

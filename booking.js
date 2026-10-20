@@ -15,10 +15,9 @@ function bouquet(topic, t) {
     </div>`;
 }
 
-// Ong, bướm bay ở khoảng trống giữa vài bìa (bên đối diện với bó hoa)
+// Ong bay ở khoảng trống giữa vài bìa (bên đối diện với bó hoa)
 const FLYERS = {
   1: '<img class="flyer bee left" src="assets/bee.svg" alt="" aria-hidden="true" />',
-  3: '<svg class="flyer fly left" viewBox="0 0 40 32" aria-hidden="true"><use href="#butterfly" /></svg>',
   4: '<img class="flyer bee right" src="assets/bee.svg" alt="" aria-hidden="true" />',
 };
 
