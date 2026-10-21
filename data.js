@@ -17,7 +17,7 @@ const TOPICS = [
     people: [
       { name: 'Ethan Lee', role: 'Food & Cooking', language: 'English, Korean',
         bio: 'Cooking is one of my favourite ways to relax and connect with people. I enjoy talking about Korean food, easy student meals, and the dishes that remind us of home.' },
-      { id: 'cooking-thi', name: 'Thi (Tea)', role: 'Cooking', language: 'Vietnamese, English',
+      { id: 'cooking-thi', name: 'Thi Vo', role: 'Cooking', language: 'Vietnamese, English',
         bio: 'As an open-minded person who enjoys cooking, I look forward to sharing my experiences and connecting with others through an activity that I love.' },
     ],
   },

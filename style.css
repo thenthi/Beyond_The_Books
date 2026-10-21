@@ -833,6 +833,16 @@ body:has(.rules) .site-footer {
   z-index: 10; /* card trồi lên được đè lên topic phía trên */
 }
 
+/* card đang trồi lên: folder chừa thêm chỗ phía trên bằng đúng độ trồi, để card không che folder trước
+   (folder đầu tiên đã có sẵn khoảng trống dưới ô tìm kiếm) */
+.topic {
+  transition: margin-top var(--open-time) var(--open-ease);
+}
+
+.topic.has-lifted:not(:first-child) {
+  margin-top: var(--lift);
+}
+
 .deck-wrap {
   position: absolute;
   left: 0;

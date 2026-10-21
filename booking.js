@@ -56,6 +56,7 @@ list.addEventListener('click', (e) => {
   const topic = cover.parentElement;
   const willOpen = !topic.classList.contains('open');
 
+  if (list.querySelector('.topic.has-lifted')) holdInPlace(cover);
   dropCards();
   list.querySelectorAll('.topic.open').forEach((t) => {
     t.classList.remove('open');
@@ -68,6 +69,18 @@ list.addEventListener('click', (e) => {
   }
 });
 
+// Card trồi lên thì folder đó chừa thêm chỗ phía trên (để không che folder trước).
+// Trong lúc chỗ trống mở ra / thu lại, cuộn trang theo từng khung hình để folder đang xem đứng yên.
+function holdInPlace(el, ms = 650) {
+  const target = el.getBoundingClientRect().top;
+  const start = performance.now();
+  requestAnimationFrame(function step(now) {
+    const drift = el.getBoundingClientRect().top - target;
+    if (Math.abs(drift) > 0.5) window.scrollBy(0, drift);
+    if (now - start < ms) requestAnimationFrame(step);
+  });
+}
+
 // Chạm vào mép card: card trồi lên cho xem thông tin. Chạm lần nữa vào card đang trồi: sang trang đặt lịch
 function dropCards(scope = list) {
   scope.querySelectorAll('.book-card.lifted, .book-card.behind').forEach((c) => c.classList.remove('lifted', 'behind'));
@@ -78,9 +91,11 @@ list.addEventListener('click', (e) => {
   const card = e.target.closest('.book-card');
   if (!card || card.classList.contains('lifted')) return;
   e.preventDefault();
+  const topic = card.closest('.topic');
+  holdInPlace(topic.querySelector('.cover'));
   dropCards();
   card.classList.add('lifted');
-  card.closest('.topic').classList.add('has-lifted');
+  topic.classList.add('has-lifted');
   // các card nằm sau cũng nhô lên theo để mép của chúng vẫn ló ra phía trên
   let prev = card.previousElementSibling;
   while (prev) {
@@ -91,7 +106,11 @@ list.addEventListener('click', (e) => {
 
 // chạm ra ngoài thì card hạ xuống lại
 document.addEventListener('click', (e) => {
-  if (!e.target.closest('.book-card')) dropCards();
+  if (e.target.closest('.book-card') || e.target.closest('.cover')) return; // bấm bìa đã có xử lý riêng
+  const lifted = list.querySelector('.topic.has-lifted');
+  if (!lifted) return;
+  holdInPlace(lifted.querySelector('.cover'));
+  dropCards();
 });
 
 // Tìm Living Book theo tên, topic, nghề hoặc giới thiệu. Đang tìm thì ẩn các bìa topic.
